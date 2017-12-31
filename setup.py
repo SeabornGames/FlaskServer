@@ -10,7 +10,7 @@ setup(
     author='Ben Christenson',
     author_email='Python@BenChristenson.com',
     url='https://github.com/SeabornGames/FlaskServer',
-    packages=['seaborn.flask'],
+    packages=['seaborn.flask_server'],
     install_requires=[
         "Flask>=0.11.1",
         "Flask-DebugToolbar==0.10.0",
@@ -30,7 +30,7 @@ setup(
         "test-chain>=0.0.1",
         "Werkzeug>=0.11.11",
         "WTForms>=2.1",
-        "psycopg2>=2.7.1"
+        "psycopg2>=2.7.1",
         'seaborn_meta',
     ],
     extras_require={'test': ['test-chain',

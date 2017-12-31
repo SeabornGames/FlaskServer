@@ -1,9 +1,11 @@
-""" This will accept command prompt commands to do events like init db, drop db, create_endpoints.
+""" This will accept command prompt commands to do events like
+    init db, drop db, create_endpoints.
     It will run the service but isn't the only way to run the service
 """
 import sys
-from seaborn.flask.setup.manager import setup_manager
-from test.flask_app.settings.global_import import setup_flask
+
+from seaborn.flask_server.setup.manager import setup_manager
+from .settings.global_import import setup_flask
 
 
 def main():

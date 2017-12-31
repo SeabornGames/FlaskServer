@@ -1,9 +1,13 @@
+import os
 import platform
-from seaborn.flask.setup.config import *
-from seaborn.file.file import relative_path, os
+from seaborn.flask_server.setup.config import (ProductionConfig,
+                                               LocalDebugConfig)
+from seaborn.file import relative_path
 
-if platform.platform() == "Linux-3.13.0-106-generic-x86_64-with-debian-jessie-sid":  # this is my AWS linux box
-    Config = ProductionConfig
+
+if platform.platform() == \
+        "Linux-3.13.0-106-generic-x86_64-with-debian-jessie-sid":
+    Config = ProductionConfig # this is my AWS linux box
 else:
     Config = LocalDebugConfig
 
