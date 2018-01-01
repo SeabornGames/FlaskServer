@@ -3,10 +3,10 @@ from setuptools import setup
 setup(
     name='seaborn-flask-server',
     version='0.0.1',
-    description='Seaobrn helper wrapper around Flask',
+    description='Seaborn helper wrapper around Flask',
     long_description='This is a wrapper around the standard flask app with '
-                     'conventions, helpers, middleware, setup, autogeneration '
-                     'of client bindings',
+                     'conventions, helpers, middleware, setup, '
+                     'autogeneration of client bindings',
     author='Ben Christenson',
     author_email='Python@BenChristenson.com',
     url='https://github.com/SeabornGames/FlaskServer',
@@ -31,10 +31,10 @@ setup(
         "Werkzeug>=0.11.11",
         "WTForms>=2.1",
         "psycopg2>=2.7.1",
-        'seaborn_meta',
+        'seaborn-meta',
     ],
     extras_require={'test': ['test-chain',
-                             'seaborn-request_client'],
+                             'seaborn-request-client'],
                     },
     license='MIT License',
     classifiers=(
