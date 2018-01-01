@@ -36,9 +36,9 @@ def login(username, password, email=None):
 
     if not existing_users:
         if username:
-            raise NotFoundException(username='Invalid Username: %s'%username)
+            raise NotFoundException(username='Invalid Username: %s' % username)
         else:
-            raise NotFoundException(email='Invalid Email: %s'%email)
+            raise NotFoundException(email='Invalid Email: %s' % email)
 
     for existing_user in existing_users:
         if existing_user.check_password(password):
@@ -101,7 +101,8 @@ def username_delete(username):
 
 
 @USER.route('/user/signup', methods=['PUT'])
-@api_endpoint(auth='Anonymous', validator=User, html='user/signup.html', redirect='/')
+@api_endpoint(auth='Anonymous', validator=User, html='user/signup.html',
+              redirect='/')
 def create(username, password, email=None, full_name=None):
     """
         This will create a PnP user
@@ -118,8 +119,10 @@ def create(username, password, email=None, full_name=None):
         users = User.query.filter_by(username=username).all()
 
     if not users:
-        users = [User(username=username, _password_hash=generate_password_hash(password),
-                      full_name=full_name or username, status='Active')]
+        users = [User(username=username,
+                      _password_hash=generate_password_hash(password),
+                      full_name=full_name or username,
+                      status='Active')]
 
     for user in users:
         if user.check_password(password):
@@ -132,7 +135,7 @@ def create(username, password, email=None, full_name=None):
                 user.email = email or user.email
 
             user.auth_level = "User"
-            # this is here instead of the decorator so that the user can be logged in
+            # this is used instead of the decorator to log in the user
             db.session.add(user)
             db.session.commit()
 
@@ -141,13 +144,16 @@ def create(username, password, email=None, full_name=None):
 
     time.sleep(2)
     if users[0].username == username:
-        raise UnauthorizedException(username="Username %s has already been taken" % username)
+        raise UnauthorizedException(
+            username="Username %s has already been taken" % username)
     else:
-        raise ForbiddenException(username="Email %s has already been taken" % email)
+        raise ForbiddenException(
+            username="Email %s has already been taken" % email)
 
 
 @USER.route('/user', methods=['POST'])
-@api_endpoint(auth='User', validator=User, html='user/signup.html', redirect='/')
+@api_endpoint(auth='User', validator=User, html='user/signup.html',
+              redirect='/')
 def update(username=None, email=None, full_name=None, password=None):
     """
         This will update a PnP user
@@ -165,13 +171,18 @@ def update(username=None, email=None, full_name=None, password=None):
     users = User.query.filter(or_(*conditions)).all()
 
     if not [user for user in users if user.user_id == current_user.user_id]:
-        raise NotFoundException("Cannot find user of user_id: %s" % current_user.user_id)
+        raise NotFoundException(
+            "Cannot find user of user_id: %s" % current_user.user_id)
 
-    if email is not None and [user for user in users if user.user_id != current_user.user_id and user.email == email]:
-        raise ForbiddenException("Email address (%s) is already being used" % email)
+    if email is not None and [user for user in users if
+                              user.user_id != current_user.user_id and
+                                              user.email == email]:
+        raise ForbiddenException(
+            "Email address (%s) is already being used" % email)
 
     if len(users) > 1:
-        raise UnauthorizedException("Username (%s) is already being used" % username)
+        raise UnauthorizedException(
+            "Username (%s) is already being used" % username)
 
     user = users[0]
     for k, v in function_kwargs(exclude_keys=['password']).items():
@@ -190,15 +201,17 @@ def update(username=None, email=None, full_name=None, password=None):
 
 
 @USER.route('/user/admin', methods=['GET', 'PUT', 'POST'])
-@api_endpoint(auth='Admin', validator=User, html='user/admin_update.html', commit=True, add=True)
-def admin_update(username, email=None, full_name=None, password=None, status=None, auth_level=None, user_id=None):
+@api_endpoint(auth='Admin', validator=User, html='user/admin_update.html',
+              commit=True, add=True)
+def admin_update(username, email=None, full_name=None, password=None,
+                 status=None, auth_level=None, user_id=None):
     """
     :param username:   str of the username give my the player
     :param email:      str of the user's email address
     :param full_name:  str of the full name
     :param password:   str of the encrypted password
     :param status:     str of the enum status ['Active', 'Suspended']
-    :param auth_level: str of the enum auth_level ['User', 'Demo', 'Superuser', 'Admin']
+    :param auth_level: str of the enum auth_level <MUser Demo Superuser Admin>
     :param user_id:    int of the user_id to update
     :return:           User dict of the user updated by admin
     """

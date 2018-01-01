@@ -1,4 +1,4 @@
-from flask_app.settings.global_import import *
+from example_flask_app.settings.global_import import *
 
 log.trace("Importing endpoint user.models")
 import re
@@ -23,8 +23,10 @@ class User(db.Model, ApiModel):
     email = db.Column(db.String(120), unique=True)
     full_name = db.Column(db.String(30), default="")
     _password_hash = db.Column(db.String)
-    status = db.Column(db.Enum(*USER_STATUS_ENUM, name='user_status'), default=USER_STATUS_ENUM[0])
-    auth_level = db.Column(db.Enum(*AUTH_LEVELS_ENUM, name='user_auth_level'), default=AUTH_LEVELS_ENUM[0])
+    status = db.Column(db.Enum(*USER_STATUS_ENUM, name='user_status'),
+                       default=USER_STATUS_ENUM[0])
+    auth_level = db.Column(db.Enum(*AUTH_LEVELS_ENUM, name='user_auth_level'),
+                           default=AUTH_LEVELS_ENUM[0])
     created_timestamp = db.Column(db.DateTime(timezone=True), default=cst_now)
 
     def __init__(self, **kwargs):
@@ -58,7 +60,8 @@ class User(db.Model, ApiModel):
         :return:            bool if the user is of the auth level
         """
         try:
-            if AUTH_LEVELS_ENUM.index(self.auth_level) < AUTH_LEVELS_ENUM.index(auth_level):
+            if AUTH_LEVELS_ENUM.index(self.auth_level) < \
+                    AUTH_LEVELS_ENUM.index(auth_level):
                 db.session.add(self)
                 db.session.commit()
                 return False
@@ -69,22 +72,26 @@ class User(db.Model, ApiModel):
     @classmethod
     def validator_email(cls, email, **kwargs):
         """ This will determine if the email address is valid and not used"""
-        assert EMAIL_REGEX.match(email) and len(email) < 121, 'Invalid Email Syntax: %s' % email
+        assert EMAIL_REGEX.match(email) and len(email) < 121, \
+            'Invalid Email Syntax: %s' % email
 
     @classmethod
     def validator_username(cls, username, **kwargs):
         """ This will determine if the name is valid """
         match = GENERIC_REGEX.match(username)
-        assert GENERIC_REGEX.match(username), 'Invalid Username Syntax: %s' % username
+        assert GENERIC_REGEX.match(username), \
+            'Invalid Username Syntax: %s' % username
 
     @classmethod
     def validate_full_name(cls, full_name, **kwargs):
         """ This will determine if the email address is valid and not used"""
-        assert GENERIC_REGEX.match(full_name), 'Invalid Full Name Syntax: %s' % full_name
+        assert GENERIC_REGEX.match(full_name), \
+            'Invalid Full Name Syntax: %s' % full_name
 
     @classmethod
     def validate_password(cls, password, **kwargs):
-        assert password == kwargs.get('confirm_password', password), "Passwords don't match"
+        assert password == kwargs.get('confirm_password', password), \
+            "Passwords don't match"
 
     @classmethod
     def validate_auth_level(cls, auth_level, **kwargs):

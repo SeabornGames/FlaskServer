@@ -1,12 +1,9 @@
 """
-    This module sets up a series of echo endpoints to test if the server is up and responding.
+    This module sets up a series of echo endpoints to test if the server
+    is up and responding.
 """
-from test.flask_app.settings.global_import import *
-from seaborn.timestamp import datetime_to_str, cst_now
-from seaborn.flask.decorators import api_endpoint
-from flask import Blueprint
-
-#log.trace("Importing endpoint echo.views")
+from example_flask_app.settings.global_import import *
+log.trace("Importing endpoint echo.views")
 from .models import Echo
 
 ECHO = Blueprint('test', __name__)
@@ -19,8 +16,9 @@ def timestamp():
     :return: str of HTML code for a simple Hello World
     """
     now = datetime_to_str(cst_now(), "%Y-%m-%d %H:%M:%S")
-#    log.debug("timestamp: " + now)
-    return '<body><h1>Hello World:  %s/Flask  </h1>%s</body>' % (configuration.name, now)
+    log.debug("timestamp: " + now)
+    return '<body><h1>Hello World:  %s/Flask  </h1>%s</body>' % (
+        configuration.name, now)
 
 
 @ECHO.route('/echo')
@@ -30,7 +28,7 @@ def hello_world():
         This will return the string "Hello World!"
     :return: str of "Hello World!"
     """
-#    log.debug("echo:: Hello Cruel World!")
+    log.debug("echo:: Hello Cruel World!")
     return 'Hello Cruel World!'
 
 
@@ -83,7 +81,8 @@ def get_float(value=1.23):
 @api_endpoint(commit=True, add=True, auth='Admin')
 def put_message(key='hello', value='world'):
     """
-        This takes two parameters a key and a value and temporarily stores them on the server
+        This takes two parameters a key and a value and temporarily
+        stores them on the server
     :param key:     str of key to store the value under
     :param value:   str of the value to store
     :return:        Echo dict of the key value stored
