@@ -12,7 +12,7 @@ log = logging.getLogger(__name__)
 stage = "importing global_import"
 try:
     from .settings.global_import import setup_flask
-    stage = "importing endpoints"
+    stage = "importing endpoints"       #TODO resolve relative import issues 'example_flask_app'
     from .endpoints import __init__ as endpoints
     stage = "setup flask"
     run = setup_flask.setup_run(endpoints)
