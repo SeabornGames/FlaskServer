@@ -1,4 +1,4 @@
-from example_flask_app.settings.global_import import *
+from example.flask_app.settings.global_import import *
 
 log.trace("Importing endpoint user.models")
 import re

@@ -1,8 +1,8 @@
-from example_flask_app.settings.global_import import *
+from example.flask_app.settings.global_import import *
 
 log.trace("Importing endpoint account.views")
 from .models import Account
-from example_flask_app.endpoints.account.access.models import Access
+from example.flask_app.endpoints.account.access import Access
 
 ACCOUNT = Blueprint('account', __name__)
 

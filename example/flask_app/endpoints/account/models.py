@@ -1,5 +1,4 @@
-from example_flask_app.settings.global_import import *
-from example_flask_app.endpoints.user.models import User
+from example.flask_app.settings.global_import import *
 
 log.trace("Importing endpoint account.models")
 
