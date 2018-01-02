@@ -1,6 +1,6 @@
 from example_flask_app.settings.global_import import *
 
-from example.flask_app.endpoints import Account
+from flask_app.endpoints import Account
 
 log.trace("Importing endpoint account.transfer.models")
 

@@ -11,10 +11,9 @@ __author__ = 'Ben Christenson'
 __date__ = "9/15/15"
 import os
 from seaborn.logger import SeabornFormatter, TraceFormatter, log
-from seaborn.python_2_to_3 import *
 from seaborn.file import find_file
-from seaborn.local_data import LocalData
 from seaborn.timestamp import set_timezone_aware
+
 
 class BaseConfig(object):
     """ Base config for Flask """
@@ -42,7 +41,8 @@ class BaseConfig(object):
     SQLALCHEMY_DATABASE_URI = ""
     database_source = 'sqlite'
 
-    def __init__(self, domain, name, flask_folder, data_folder=None, log_file=None, database_source=None, **kwargs):
+    def __init__(self, domain, name, flask_folder, data_folder=None,
+                 log_file=None, database_source=None, **kwargs):
         """
         :param domain:
         :param name:
@@ -61,15 +61,18 @@ class BaseConfig(object):
         self.STATIC_FOLDER = '%s/static' % flask_folder
 
         self.unity_folder = ['%s/bindings/unity_bindings/api'%self.flask_folder]
-        self.log_file = log_file or '%s/log/%s_flask.log' % (self.data_folder, name.lower())
+        self.log_file = log_file or '%s/log/%s_flask.log' % (
+            self.data_folder, name.lower())
         self.extract_secret_information()
-        self.SQLALCHEMY_DATABASE_URI = self.get_database_connection(database_source or self.database_source)
+        self.SQLALCHEMY_DATABASE_URI = self.get_database_connection(
+            database_source or self.database_source)
         for k, v in kwargs.items():
             setattr(self, k, v)
         self.timezone_aware = self.database_source != 'sqlite'
 
     def setup_logging(self):
-        SeabornFormatter(relative_pathname='/%s_flask/' % self.name, str_format=self.log_str_format,
+        SeabornFormatter(relative_pathname='/%s_flask/' % self.name,
+                         str_format=self.log_str_format,
                          date_format='%H:%M:%S'). \
             setup_logging(log_filename=self.log_file,
                           log_level=self.log_level,
@@ -83,8 +86,10 @@ class BaseConfig(object):
         if not secret_key_file or not os.path.exists(secret_key_file):
             secret_key_file = find_file('_secret_key.txt', self.data_folder)
 
-        assert os.path.exists(secret_key_file), 'Missing Secret Key File %s' % secret_key_file
-        admin_password, super_passwrod, demo_password, secret_key = open(secret_key_file).read().split('\n', 3)
+        assert os.path.exists(secret_key_file), \
+            'Missing Secret Key File %s' % secret_key_file
+        admin_password, super_passwrod, demo_password, secret_key = \
+            open(secret_key_file).read().split('\n', 3)
         if isinstance(secret_key, unicode):
             secret_key = secret_key.encode('latin1', 'replace')  # ensure bytes
         self.admin_password = admin_password.strip()
@@ -105,14 +110,16 @@ class BaseConfig(object):
         return 'sqlite:///%s.db' % (os.path.join(self.data_folder, self.name))
 
     def local_database_connection(self):
-        db_info = LocalData(find_file('_db_%s.json' % self.name, self.flask_folder), no_question=True)
+        db_info = LocalData(find_file('_db_%s.json' % self.name,
+                                      self.flask_folder), no_question=True)
         os.environ['password'] = db_info['password']
         db_format = '{driver}://{user}:{password}@{host}/{dbname}'
         self.DB_PORT = int(db_info["port"])
         return db_format.format(**db_info._data)
 
     def remote_database_connection(self):
-        db_info = LocalData(find_file('_db_remote_%s.json' % self.name, self.flask_folder), no_question=True)
+        db_info = LocalData(find_file('_db_remote_%s.json' % self.name,
+                                      self.flask_folder), no_question=True)
         os.environ['password'] = db_info['password']
         db_format = '{driver}://{user}:{password}@{host}/{dbname}'
         self.DB_PORT = int(db_info["port"])

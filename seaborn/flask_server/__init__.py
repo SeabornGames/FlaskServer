@@ -26,7 +26,9 @@ from seaborn.flask_server.decorators import api_endpoint, MEMCACHE
 from seaborn.flask_server.blueprint import BlueprintBinding as Blueprint
 from seaborn.flask_server.models import ApiModel
 
+
 log.trace("importing other seaborn modules")
 from seaborn.request_client.errors import *
 from seaborn.meta.calling_function import function_kwargs
 from seaborn.timestamp import cst_now, datetime_to_str
+

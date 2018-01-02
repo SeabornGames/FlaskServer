@@ -1,9 +1,9 @@
-from example.flask_app.settings.global_import import *
+from flask_app.settings.global_import import *
 
 log.trace("Importing endpoint account.transfer.views")
 from .models import Transfer
-from example.flask_app.endpoints import Account
-from example.flask_app.endpoints.account.access import Access
+from flask_app.endpoints import Account
+from flask_app.endpoints.account.access import Access
 
 TRANSFER = Blueprint('transfer', __name__)
 

@@ -33,9 +33,11 @@ setup(
         "psycopg2>=2.7.1",
         'seaborn-meta',
     ],
-    extras_require={'test': ['test-chain',
-                             'seaborn-request-client'],
-                    },
+    extras_require={'test': [
+        'test-chain',
+        'seaborn-request-client'
+        ],
+    },
     license='MIT License',
     classifiers=(
         'Intended Audience :: Developers',

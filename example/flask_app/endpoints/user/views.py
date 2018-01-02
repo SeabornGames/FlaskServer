@@ -1,4 +1,4 @@
-from example.flask_app.settings.global_import import *
+from flask_app.settings.global_import import *
 
 log.trace("Importing endpoint user.views")
 

@@ -2,7 +2,7 @@
     This module sets up a series of echo endpoints to test if the server
     is up and responding.
 """
-from example.flask_app.settings.global_import import *
+from flask_app.settings.global_import import *
 log.trace("Importing endpoint echo.views")
 from .models import Echo
 
