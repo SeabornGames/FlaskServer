@@ -1,6 +1,9 @@
+from __future__ import absolute_import
+
 from seaborn.logger import log
 
 log.trace("importing generic modules")
+
 import time
 import datetime
 import re
@@ -22,16 +25,12 @@ from sqlalchemy.orm import joinedload, backref, relationship
 from sqlalchemy.ext.associationproxy import association_proxy
 
 log.trace("importing seaborn-flask-server modules")
-from seaborn.flask_server.decorators import api_endpoint, MEMCACHE
-from seaborn.flask_server.blueprint import BlueprintBinding as Blueprint
-from seaborn.flask_server.models import ApiModel
+from .decorators import api_endpoint, MEMCACHE
+from .blueprint import BlueprintBinding as Blueprint
+from .models import ApiModel
 
 
 log.trace("importing other seaborn modules")
 from seaborn.request_client.errors import *
 from seaborn.meta.calling_function import function_kwargs
 from seaborn.timestamp import cst_now, datetime_to_str
-<<<<<<< HEAD
-
-=======
->>>>>>> example_attempt

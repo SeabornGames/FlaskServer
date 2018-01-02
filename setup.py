@@ -32,6 +32,8 @@ setup(
         "WTForms>=2.1",
         "psycopg2>=2.7.1",
         'seaborn-meta',
+        'seaborn-file',
+        'seaborn-logger'
     ],
     extras_require={'test': [
         'test-chain',
@@ -46,5 +48,9 @@ setup(
         'Operating System :: POSIX :: Linux :: Windows',
         'Programming Language :: Python',
         'Programming Language :: Python :: 2.7',
-    )
+    ),
+    entry_points='''
+        [console_scripts]
+        flask_server = seaborn.flask_server
+    '''
 )

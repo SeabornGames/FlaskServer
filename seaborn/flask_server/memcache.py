@@ -63,6 +63,7 @@ class MemCache():
             self.cache[cache_key] = (cache_lifetime, value)
         except Exception as ex:
             log.exception("Exception in MemCache.set: %s"%ex)
+            pass
 
     def delete(self, key_template, request_parameters=None):
         """
@@ -79,3 +80,4 @@ class MemCache():
             self.cache.pop(cache_key, None)
         except Exception as ex:
             log.exception("Exception in MemCache.delete: %s"%ex)
+            pass
