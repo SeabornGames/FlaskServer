@@ -31,4 +31,7 @@ log.trace("importing other seaborn modules")
 from seaborn.request_client.errors import *
 from seaborn.meta.calling_function import function_kwargs
 from seaborn.timestamp import cst_now, datetime_to_str
+<<<<<<< HEAD
 
+=======
+>>>>>>> example_attempt
