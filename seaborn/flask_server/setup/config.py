@@ -75,7 +75,7 @@ class BaseConfig(object):
                           log_level=self.log_level,
                           log_restart=True,
                           log_stdout_level=None)
-        log.trace("Logging setup complete")
+        #1 log.trace("Logging setup complete")
 
     def extract_secret_information(self):
         # secret key, which is not part of the repository for security reasons

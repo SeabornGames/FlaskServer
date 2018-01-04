@@ -1,11 +1,17 @@
 from example_flask_app.endpoints.account.models import Account
 from example_flask_app.settings.global_import import *
+from seaborn.flask_server.models import ApiModel
 
-log.trace("Importing endpoint account.transfer.models")
+from sqlalchemy.orm import backref
+from seaborn.timestamp import cst_now
+
+#1 log.trace("Importing endpoint account.transfer.models")
 
 
 class Transfer(db.Model, ApiModel):
     __tablename__ = "account_transfer"
+    __table_args__ = {'extend_existing': True}
+
     transfer_id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer,
                         db.ForeignKey('account.account_id'))

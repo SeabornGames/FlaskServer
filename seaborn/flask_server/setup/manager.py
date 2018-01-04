@@ -49,7 +49,7 @@ def setup_manager(setup_app):
 
     @manager.command
     def preload_db():
-        log.debug("Preloading Database")
+        #1 log.debug("Preloading Database")
         # todo fill in as needed
 
 

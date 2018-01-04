@@ -8,8 +8,8 @@ import json
 from flask_login import current_user
 from sqlalchemy.orm import joinedload
 from sqlalchemy.ext.associationproxy import _AssociationList, _AssociationDict, _AssociationCollection
-from seaborn.calling_function import function_defaults
-from seaborn.rest.errors import *
+from seaborn.meta.calling_function import function_defaults
+from seaborn.rest_client.errors import *
 from seaborn.timestamp import datetime_to_str
 
 

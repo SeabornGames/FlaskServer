@@ -1,6 +1,8 @@
 from example_flask_app.settings.global_import import *
+from seaborn.flask_server.models import ApiModel
+from seaborn.timestamp import cst_now
 
-log.trace("Importing endpoint user.models")
+#1 log.trace("Importing endpoint user.models")
 import re
 from werkzeug.security import check_password_hash
 
@@ -18,6 +20,8 @@ USER_STATUS_ENUM = ['Active',
 
 class User(db.Model, ApiModel):
     __tablename__ = "usr"
+    __table_args__ = {'extend_existing': True}
+
     user_id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(30), unique=True)
     email = db.Column(db.String(120), unique=True)

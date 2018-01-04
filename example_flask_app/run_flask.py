@@ -2,18 +2,21 @@
 import os
 import sys
 import traceback
-import logging
+from seaborn.logger import log
 
 # This is needed so endpoints can all import the same global_import
 root_path = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(os.path.dirname(root_path))
-log = logging.getLogger(__name__)
+#log = SeabornLogger(__name__)
 
 stage = "importing global_import"
 try:
-    from .settings.global_import import setup_flask
+    from settings.global_import import setup_flask
     stage = "importing endpoints"
-    from .endpoints import __init__ as endpoints
+    #if __name__ == '__main__':
+    import endpoints
+    #else:
+    #from endpoints import endpoints
     stage = "setup flask"
     run = setup_flask.setup_run(endpoints)
 except Exception as ex:
