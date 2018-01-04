@@ -1,6 +1,6 @@
 from flask_app.settings.global_import import *
 
-log.trace("Importing endpoint account.transfer.views")
+#1log.trace("Importing endpoint account.transfer.views")
 from .models import Transfer
 from flask_app.endpoints import Account
 from flask_app.endpoints.account.access import Access

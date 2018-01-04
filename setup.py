@@ -1,4 +1,4 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 
 setup(
     name='seaborn-flask-server',
@@ -10,7 +10,7 @@ setup(
     author='Ben Christenson',
     author_email='Python@BenChristenson.com',
     url='https://github.com/SeabornGames/FlaskServer',
-    packages=['seaborn.flask_server'],
+    packages=['seaborn']+['seaborn.'+i for i in find_packages(where = './seaborn')],
     install_requires=[
         "Flask>=0.11.1",
         "Flask-DebugToolbar==0.10.0",

@@ -2,7 +2,7 @@ __author__ = 'Ben Christenson'
 __date__ = "9/22/15"
 from seaborn.logger import log
 import inspect
-from seaborn.flask.models.models import ApiModel
+from seaborn.flask_server.models.models import ApiModel
 
 
 def auto_register_load_table(cls, api_model, id_name, database, unique_columns=None, clear_database=True, printer=None):

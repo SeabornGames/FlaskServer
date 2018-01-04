@@ -2,9 +2,11 @@
     This module sets up a series of echo endpoints to test if the server
     is up and responding.
 """
-from flask_app.settings.global_import import *
-log.trace("Importing endpoint echo.views")
+from example.flask_app.settings.global_import import *
+#1log.trace("Importing endpoint echo.views")
 from .models import Echo
+from flask.blueprints import Blueprint
+from seaborn.flask_server.decorators import api_endpoint
 
 ECHO = Blueprint('test', __name__)
 
@@ -16,7 +18,7 @@ def timestamp():
     :return: str of HTML code for a simple Hello World
     """
     now = datetime_to_str(cst_now(), "%Y-%m-%d %H:%M:%S")
-    log.debug("timestamp: " + now)
+    #1log.debug("timestamp: " + now)
     return '<body><h1>Hello World:  %s/Flask  </h1>%s</body>' % (
         configuration.name, now)
 
@@ -28,7 +30,7 @@ def hello_world():
         This will return the string "Hello World!"
     :return: str of "Hello World!"
     """
-    log.debug("echo:: Hello Cruel World!")
+    ##1log.debug("echo:: Hello Cruel World!")
     return 'Hello Cruel World!'
 
 
@@ -88,7 +90,7 @@ def put_message(key='hello', value='world'):
     :return:        Echo dict of the key value stored
     """
     test = Echo.get_or_create(dict(echo_value=value), echo_key=key)
-#    log.debug("echo DB: %s" % id(db))
+#    #1log.debug("echo DB: %s" % id(db))
     return test
 
 

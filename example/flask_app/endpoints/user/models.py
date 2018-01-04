@@ -1,8 +1,10 @@
-from flask_app.settings.global_import import *
+from example.flask_app.settings.global_import import *
+from seaborn.timestamp import cst_now
 
-log.trace("Importing endpoint user.models")
+#1log.trace("Importing endpoint user.models")
 import re
 from werkzeug.security import check_password_hash
+from seaborn.flask_server.models import ApiModel
 
 EMAIL_REGEX = re.compile(r'^.+@([^.@][^@]+)$')
 GENERIC_REGEX = re.compile(r'^[A-Za-z0-9_-]{2,30}$')

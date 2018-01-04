@@ -1,6 +1,8 @@
-from flask_app.settings.global_import import *
+from example.flask_app.settings.global_import import *
+from seaborn.flask_server.blueprint import Blueprint
+from seaborn.flask_server.decorators import api_endpoint
 
-log.trace("Importing endpoint user.views")
+#1log.trace("Importing endpoint user.views")
 
 from .models import User
 

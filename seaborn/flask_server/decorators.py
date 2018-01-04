@@ -17,11 +17,11 @@ from datetime import datetime
 from seaborn.logger import log
 #2from seaborn.python_2_to_3 import *
 from ..flask_server.memcache import MemCache
-from ..flask_server.models import ApiModel
+from ..flask_server.models.models import ApiModel
 from seaborn.meta.parse_doc import parse_arg_types
 from seaborn.timestamp import str_to_datetime
 from seaborn.meta.calling_function import function_defaults, function_path, function_arguments
-from seaborn.request_client.errors import RestException, BadRequestException, NotFoundException, GOOD_REQUEST
+from seaborn.rest_client.errors import RestException, BadRequestException, NotFoundException, GOOD_REQUEST
 
 DEBUG = True
 db = None
@@ -71,7 +71,7 @@ def api_endpoint(auth='Anonymous', validator=None, html=None, redirect=None, add
         @wraps(func)
         def decorated_function(*args, **kwargs):
             try:
-                log.trace("Api Call to %s <%s>" % (path.split(RELATIVE_PATH, 1)[-1], func_name))
+                #1log.trace("Api Call to %s <%s>" % (path.split(RELATIVE_PATH, 1)[-1], func_name))
                 if auth != 'Anonymous' and not (current_user.is_authenticated and current_user.is_auth_level(auth)):
                     return "Insufficent Authority", 401, {'Content-Type': 'application/json'}
 
@@ -100,7 +100,7 @@ def api_endpoint(auth='Anonymous', validator=None, html=None, redirect=None, add
                 if cache_clear is not None:
                     MEMCACHE.delete(cache_clear, kwargs)
 
-                log.trace("Api Call kwargs: %s" % str(kwargs))
+                #1log.trace("Api Call kwargs: %s" % str(kwargs))
                 try:
                     try:
                         ret = func(**kwargs)

@@ -1,9 +1,10 @@
-from example_flask_app.settings.global_import import *
+from example.flask_app.settings.global_import import *
+from seaborn.flask_server.models import ApiModel
 
-from flask_app.endpoints import Account
-from flask_app.endpoints import User
+from example.flask_app.endpoints.account.models import Account
+from example.flask_app.endpoints.user.models import User
 
-log.trace("Importing endpoint account.access.models")
+#1log.trace("Importing endpoint account.access.models")
 
 
 class Access(db.Model, ApiModel):

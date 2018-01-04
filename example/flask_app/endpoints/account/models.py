@@ -1,6 +1,9 @@
-from flask_app.settings.global_import import *
-
-log.trace("Importing endpoint account.models")
+from example.flask_app.settings.global_import import *
+from seaborn.flask_server.models import ApiModel
+from seaborn.timestamp import *
+from sqlalchemy.ext.associationproxy import association_proxy
+import re
+#1log.trace("Importing endpoint account.models")
 
 ACCOUNT_STATUS_ENUM = ['Active',
                        'Locked',
@@ -12,6 +15,7 @@ GENERIC_REGEX = re.compile(r'^[A-Za-z0-9_]{2,30}$')
 
 class Account(db.Model, ApiModel):
     __tablename__ = "account"
+    extend_existing = True #TODO Double-check this
     account_id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('usr.user_id'))
     name = db.Column(db.String, default=datetime_to_str, unique=True)

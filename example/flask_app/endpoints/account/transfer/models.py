@@ -1,8 +1,10 @@
-from example_flask_app.settings.global_import import *
+from example.flask_app.settings.global_import import *
+from seaborn.timestamp import *
+from seaborn.flask_server.models import ApiModel
 
-from flask_app.endpoints import Account
-
-log.trace("Importing endpoint account.transfer.models")
+#from flask_app.endpoints import Account
+#TODO: Fix line 5
+#1log.trace("Importing endpoint account.transfer.models")
 
 
 class Transfer(db.Model, ApiModel):

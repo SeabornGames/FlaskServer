@@ -24,5 +24,5 @@ except Exception as ex:
     sys.exit()
 
 if __name__ == '__main__':
-    log.debug("Starting Flask Service from Run")
+    #1log.debug("Starting Flask Service from Run")
     run()
