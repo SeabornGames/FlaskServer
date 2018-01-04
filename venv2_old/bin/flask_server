@@ -1,0 +1,10 @@
+#!/Users/ben/code/seaborn/flask/venv2/bin/python
+# EASY-INSTALL-ENTRY-SCRIPT: 'seaborn-flask-server==0.0.1','console_scripts','flask_server'
+__requires__ = 'seaborn-flask-server==0.0.1'
+import sys
+from pkg_resources import load_entry_point
+
+if __name__ == '__main__':
+    sys.exit(
+        load_entry_point('seaborn-flask-server==0.0.1', 'console_scripts', 'flask_server')()
+    )
