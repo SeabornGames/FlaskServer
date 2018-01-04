@@ -1,6 +1,6 @@
 from example_flask_app.settings.global_import import *
 
-#1 log.trace("Importing endpoint account.transfer.views")
+log.trace("Importing endpoint account.transfer.views")
 from .models import Transfer
 from flask import Blueprint
 from flask_login import current_user

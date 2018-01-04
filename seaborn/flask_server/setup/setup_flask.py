@@ -53,19 +53,19 @@ class SetupFlask(object):
             self._test_database()
 
             run = self._setup_gevent() or self._run_server
-            #1 log.trace("Done with App Setup")
+            log.trace("Done with App Setup")
             return run
         except Exception as ex:
             log.error("Exception:: %s" % ex)
             raise
 
     def _setup_database(self):
-        #1 log.trace("Creating Database Connection %s" % self.app.config['SQLALCHEMY_DATABASE_URI'])
+        log.trace("Creating Database Connection %s" % self.app.config['SQLALCHEMY_DATABASE_URI'])
         self.db = SQLAlchemy(self.app)
 
     def _setup_gevent(self):
         if self.configuration.gevent and sys.version_info[0] == 2:
-            #1 log.trace("Setup Gevents for multithreading support")
+            log.trace("Setup Gevents for multithreading support")
             from gevent import monkey
             monkey.patch_all()
             from gevent import wsgi
@@ -75,7 +75,7 @@ class SetupFlask(object):
     def _test_database(self):
         User = self.endpoints.User
         if self.configuration.debug:
-            #1 log.trace("Inspected Database for tables")
+            log.trace("Inspected Database for tables")
             engine = create_engine(self.configuration.SQLALCHEMY_DATABASE_URI)
             inspector = sqlalchemy.inspect(engine)
             if not inspector.get_table_names():
@@ -90,7 +90,7 @@ class SetupFlask(object):
         if self.configuration.setup_proxy_conn:
             from seaborn.flask.blueprint import ProxyEndpoint
             conn = ProxyEndpoint()
-            #1 log.trace("Setup Proxy Connection for internal api calls %s" % id(conn))
+            log.trace("Setup Proxy Connection for internal api calls %s" % id(conn))
             blue_prints = [getattr(self.endpoints, name) for name in dir(self.endpoints) if
                            isinstance(getattr(self.endpoints, name), BlueprintBinding)]
             for blue_print in blue_prints:
@@ -100,7 +100,7 @@ class SetupFlask(object):
         """
         :return: None
         """
-        #1 log.trace("Setup Login Manager")
+        log.trace("Setup Login Manager")
         # cookies are handled in _load_user
         login_manager = LoginManager()
         login_manager.session_protection = 'strong'
@@ -117,7 +117,7 @@ class SetupFlask(object):
         :return:          None
         """
         self.endpoints = endpoints
-        #1 log.trace("Registering Blueprint Endpoints")
+        log.trace("Registering Blueprint Endpoints")
         for name in dir(self.endpoints):
             blue_print = getattr(self.endpoints, name)
             if isinstance(blue_print, Blueprint):
@@ -129,7 +129,7 @@ class SetupFlask(object):
 
     def _setup_debug_toolbar(self):
         if self.configuration.DEBUG_TOOLBAR:
-            #1 log.trace("Setup Debug Toolbar")
+            log.trace("Setup Debug Toolbar")
             from flask_debugtoolbar import DebugToolbarExtension
             DebugToolbarExtension(self.app)
 
@@ -137,7 +137,7 @@ class SetupFlask(object):
         """
         :return: None
         """
-        #1 log.trace("Starting App Run")
+        log.trace("Starting App Run")
         self.app.run(host=self.configuration.ip_address, port=self.configuration.SERVER_PORT)
 
     def initialize_database(self):

@@ -1,7 +1,7 @@
 from example_flask_app.settings.global_import import *
 from seaborn.flask_server.models import ApiModel
 
-#1 log.trace("Importing endpoint test.models")
+log.trace("Importing endpoint test.models")
 
 
 class Echo(db.Model, ApiModel):

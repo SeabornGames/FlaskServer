@@ -2,7 +2,7 @@ from example_flask_app.settings.global_import import *
 from seaborn.flask_server.models import ApiModel
 from seaborn.timestamp import cst_now
 
-#1 log.trace("Importing endpoint user.models")
+log.trace("Importing endpoint user.models")
 import re
 from werkzeug.security import check_password_hash
 

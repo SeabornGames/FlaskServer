@@ -16,7 +16,7 @@ from datetime import datetime
 
 from seaborn.meta.parse_doc import parse_arg_types
 
-#1from seaborn.logger import log
+from seaborn.logger import log
 #from seaborn.python_2_to_3 import *
 from seaborn.meta.parse_doc import parse_arg_types
 from seaborn.timestamp import str_to_datetime
@@ -73,7 +73,7 @@ def api_endpoint(auth='Anonymous', validator=None, html=None, redirect=None, add
         @wraps(func)
         def decorated_function(*args, **kwargs):
             try:
-                #1 log.trace("Api Call to %s <%s>" % (path.split(RELATIVE_PATH, 1)[-1], func_name))
+                log.trace("Api Call to %s <%s>" % (path.split(RELATIVE_PATH, 1)[-1], func_name))
                 if auth != 'Anonymous' and not (current_user.is_authenticated and current_user.is_auth_level(auth)):
                     return "Insufficent Authority", 401, {'Content-Type': 'application/json'}
 
@@ -102,7 +102,7 @@ def api_endpoint(auth='Anonymous', validator=None, html=None, redirect=None, add
                 if cache_clear is not None:
                     MEMCACHE.delete(cache_clear, kwargs)
 
-                #1 log.trace("Api Call kwargs: %s" % str(kwargs))
+                log.trace("Api Call kwargs: %s" % str(kwargs))
                 try:
                     try:
                         ret = func(**kwargs)

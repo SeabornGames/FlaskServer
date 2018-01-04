@@ -5,7 +5,7 @@ from seaborn.flask_server.models import ApiModel
 
 from sqlalchemy.orm import backref
 
-#1 log.trace("Importing endpoint account.access.models")
+log.trace("Importing endpoint account.access.models")
 
 
 class Access(db.Model, ApiModel):

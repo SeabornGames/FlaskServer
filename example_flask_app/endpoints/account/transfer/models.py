@@ -5,7 +5,7 @@ from seaborn.flask_server.models import ApiModel
 from sqlalchemy.orm import backref
 from seaborn.timestamp import cst_now
 
-#1 log.trace("Importing endpoint account.transfer.models")
+log.trace("Importing endpoint account.transfer.models")
 
 
 class Transfer(db.Model, ApiModel):

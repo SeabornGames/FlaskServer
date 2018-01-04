@@ -5,7 +5,7 @@ from seaborn.timestamp import cst_now, datetime_to_str
 
 from sqlalchemy.ext.associationproxy import association_proxy
 
-#1 log.trace("Importing endpoint account.models")
+log.trace("Importing endpoint account.models")
 import re
 
 ACCOUNT_STATUS_ENUM = ['Active',

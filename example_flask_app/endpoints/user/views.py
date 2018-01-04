@@ -6,7 +6,7 @@ from werkzeug.security import generate_password_hash
 
 from flask_login import current_user
 
-#1 log.trace("Importing endpoint user.views")
+log.trace("Importing endpoint user.views")
 
 from .models import User
 from flask import Blueprint

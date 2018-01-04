@@ -15,7 +15,7 @@ def report(path, link, severity, message, user=None):
     username = (user or current_user).username
     msg = 'Report: [%s] <%s> %s' % (username, path, message)
     if severity < 3:
-        #1 log.debug(msg)
+        log.debug(msg)
     elif severity < 6:
         log.info(msg)
     elif severity < 7:
