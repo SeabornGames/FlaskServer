@@ -1,6 +1,13 @@
 from example.flask_app.settings.global_import import *
 from seaborn.flask_server.blueprint import Blueprint
 from seaborn.flask_server.decorators import api_endpoint
+from seaborn.meta.calling_function import function_kwargs
+from seaborn.rest_client.errors import NotFoundException, ForbiddenException, UnauthorizedException
+
+from flask_login import current_user, login_user
+from flask.helpers import flash
+
+from werkzeug.security import generate_password_hash
 
 #1log.trace("Importing endpoint user.views")
 
@@ -31,7 +38,7 @@ def login(username, password, email=None):
     if email and username == "":
         existing_users = User.query.filter_by(email=email).all()
     elif email:
-        existing_users = User.query.filter(or_(User.username == username,
+        existing_users = User.query.filter(User.query.or_(User.username == username,
                                                User.email == email)).all()
     else:
         existing_users = User.query.filter_by(username=username).all()

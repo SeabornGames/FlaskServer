@@ -1,8 +1,12 @@
-from flask_app.settings.global_import import *
+from example.flask_app.settings.global_import import *
+from seaborn.flask_server.blueprint import Blueprint
+from seaborn.rest_client.errors import NotFoundException
 
 #1log.trace("Importing endpoint user.views")
 from .models import Access
-from flask_app.endpoints import Account
+from example.flask_app.endpoints.account.views import Account
+from seaborn.flask_server.decorators import api_endpoint
+from flask_login import current_user
 
 ACCESS = Blueprint('account_access', __name__)
 

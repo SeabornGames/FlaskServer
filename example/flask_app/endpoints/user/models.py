@@ -20,6 +20,7 @@ USER_STATUS_ENUM = ['Active',
 
 class User(db.Model, ApiModel):
     __tablename__ = "usr"
+    __table_args__ = {'extend_existing': True}
     user_id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(30), unique=True)
     email = db.Column(db.String(120), unique=True)

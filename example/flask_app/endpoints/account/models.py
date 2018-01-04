@@ -15,7 +15,7 @@ GENERIC_REGEX = re.compile(r'^[A-Za-z0-9_]{2,30}$')
 
 class Account(db.Model, ApiModel):
     __tablename__ = "account"
-    extend_existing = True #TODO Double-check this
+    __table_args__ = {'extend_existing': True}
     account_id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('usr.user_id'))
     name = db.Column(db.String, default=datetime_to_str, unique=True)

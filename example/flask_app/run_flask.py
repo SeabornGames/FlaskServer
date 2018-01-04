@@ -11,9 +11,14 @@ log = logging.getLogger(__name__)
 
 stage = "importing global_import"
 try:
+    #from seaborn.flask_server.setup import setup_flask
     from settings.global_import import setup_flask
     stage = "importing endpoints"       #TODO resolve relative import issues 'example_flask_app'
-    from endpoints import __init__ as endpoints
+    if __name__ == '__main__':
+        import endpoints
+    else:
+        import flask_app.endpoints as endpoints
+    #from endpoints import __init__ as endpoints
     stage = "setup flask"
     run = setup_flask.setup_run(endpoints)
 except Exception as ex:

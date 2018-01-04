@@ -1,8 +1,14 @@
-from flask_app.settings.global_import import *
+from example.flask_app.settings.global_import import *
+from flask_login import current_user
 
+from seaborn.rest_client.errors import UnauthorizedException
+from seaborn.timestamp import datetime_to_str
 #1log.trace("Importing endpoint account.views")
+
 from .models import Account
-from flask_app.endpoints.account.access import Access
+from example.flask_app.endpoints.account.access import Access
+from seaborn.flask_server.blueprint import Blueprint
+from seaborn.flask_server.decorators import api_endpoint
 
 ACCOUNT = Blueprint('account', __name__)
 

@@ -1,9 +1,13 @@
-from flask_app.settings.global_import import *
+from example.flask_app.settings.global_import import *
+from seaborn.rest_client.errors import *
+from seaborn.flask_server.blueprint import Blueprint
+from seaborn.flask_server.decorators import api_endpoint
+from flask_login import current_user
 
 #1log.trace("Importing endpoint account.transfer.views")
 from .models import Transfer
-from flask_app.endpoints import Account
-from flask_app.endpoints.account.access import Access
+from example.flask_app.endpoints.account.models import Account
+from example.flask_app.endpoints.account.access import Access
 
 TRANSFER = Blueprint('transfer', __name__)
 
@@ -66,7 +70,7 @@ def get_array(account_id, withdraws_only=None, limit=None, offset=None):
     if withdraws_only is False:
         query = query.filter_by(deposit_account_id=account_id)
     if withdraws_only is None:
-        query = query.filter(or_(Transfer.withdraw_account_id == account_id,
+        query = query.filter(query.or_(Transfer.withdraw_account_id == account_id,
                                  Transfer.deposit_account_id == account_id))
 
     if offset is not None and offset < 0:
