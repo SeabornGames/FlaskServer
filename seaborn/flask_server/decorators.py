@@ -21,9 +21,9 @@ from seaborn.logger import log
 from seaborn.meta.parse_doc import parse_arg_types
 from seaborn.timestamp import str_to_datetime
 from seaborn.meta.calling_function import function_defaults, function_path, function_arguments
-from seaborn.rest_client.errors import RestException, BadRequestException, NotFoundException, GOOD_REQUEST
-from seaborn.flask.models import ApiModel
-from seaborn.flask.memcache import MemCache
+from seaborn.request_client.errors import RestException, BadRequestException, NotFoundException, GOOD_REQUEST
+from seaborn.flask_server.models import ApiModel
+from seaborn.flask_server.memcache import MemCache
 
 DEBUG = True
 db = None

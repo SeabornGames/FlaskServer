@@ -9,7 +9,7 @@ __author__ = 'Ben Christenson'
 __date__ = "9/15/15"
 import os
 from seaborn.logger import SeabornFormatter, TraceFormatter, log
-from seaborn.python_2_to_3 import *
+#from seaborn.python_2_to_3 import *
 from seaborn.file import find_file
 import configparser
 from seaborn.timestamp import set_timezone_aware
@@ -119,7 +119,7 @@ class BaseConfig(object):
 class LocalDebugConfig(BaseConfig):
     """ Local Debug Config for running locally so don't worry about security """
     debug = True
-    log_level = 'DEBUG'
+    log_level = 'TRACE'
 
 
 class ProductionConfig(BaseConfig):

@@ -9,7 +9,7 @@ from flask_login import current_user
 from sqlalchemy.orm import joinedload
 from sqlalchemy.ext.associationproxy import _AssociationList, _AssociationDict, _AssociationCollection
 from seaborn.meta.calling_function import function_defaults
-from seaborn.rest_client.errors import *
+from seaborn.request_client.errors import *
 from seaborn.timestamp import datetime_to_str
 
 

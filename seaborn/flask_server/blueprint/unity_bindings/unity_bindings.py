@@ -20,11 +20,15 @@
 __author__ = 'Ben Christenson'
 __date__ = "10/19/15"
 import os
+import sys
 from seaborn.logger import log
 from seaborn.file import clear_path, mkdir
-from seaborn.meta import class_name_to_instant_name, url_name_to_class_name
-from seaborn.sorters import by_attribute, by_longest_then_by_abc, by_key, by_shortest_then_by_abc
+from seaborn.meta.class_name import class_name_to_instant_name, url_name_to_class_name
 from collections import OrderedDict
+if sys.version[0]=='2':
+    from seaborn.sorters.sorters_2 import by_attribute, by_longest_then_by_abc, by_key, by_shortest_then_by_abc
+else:
+    from seaborn.sorters.sorters_3 import by_attribute, by_longest_then_by_abc, by_key, by_shortest_then_by_abc
 
 PATH = os.path.split(os.path.abspath(__file__))[0]
 tab1 = '\n    '
