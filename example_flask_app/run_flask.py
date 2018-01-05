@@ -2,13 +2,14 @@
 import os
 import sys
 import traceback
-#1from seaborn.logger import log
+from seaborn.logger import log
 
 # This is needed so endpoints can all import the same global_import
 root_path = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(os.path.dirname(root_path))
 
 stage = "importing global_import"
+
 try:
     from settings.global_import import setup_flask
     stage = "importing endpoints"
@@ -18,10 +19,10 @@ try:
 except Exception as ex:
     msg = "Exception in %s with %s\n\n%s" % (
         stage, ex, traceback.format_exc())
-    #1log.critical(msg)
+    log.critical(msg)
     print(msg)
     sys.exit()
 
 if __name__ == '__main__':
-    #1log.debug("Starting Flask Service from Run")
+    log.debug("Starting Flask Service from Run")
     run()

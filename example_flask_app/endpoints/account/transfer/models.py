@@ -1,5 +1,5 @@
-from example_flask_app.endpoints.account.models import Account
-from example_flask_app.settings.global_import import *
+from endpoints.account.models import Account
+from settings.global_import import *
 from seaborn.flask_server.models import ApiModel
 
 from sqlalchemy.orm import backref

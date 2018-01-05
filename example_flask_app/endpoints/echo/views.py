@@ -2,7 +2,7 @@
     This module sets up a series of echo endpoints to test if the server
     is up and responding.
 """
-from example_flask_app.settings.global_import import *
+from settings.global_import import *
 from seaborn.timestamp import datetime_to_str,cst_now
 from seaborn.flask_server.decorators import api_endpoint
 log.trace("Importing endpoint echo.views")

@@ -1,9 +1,7 @@
 # encoding=utf8
 """ This module defines an object for configuring the Flask app using
         app.config.from_object
-
     Flask look for keyword parameters in all caps.
-
     In addition to the keyword parameters for Flask are other lowercase keywords
     for the seaborn Flask library.
 """
@@ -13,8 +11,11 @@ import os
 from seaborn.logger import SeabornFormatter, TraceFormatter, log
 from seaborn.python_2_to_3 import *
 from seaborn.file import find_file
-from seaborn.local_data import LocalData
+import configparser
 from seaborn.timestamp import set_timezone_aware
+
+AUTH = ''
+CONN = ''
 
 class BaseConfig(object):
     """ Base config for Flask """
@@ -60,6 +61,9 @@ class BaseConfig(object):
         self.TEMPLATE_FOLDER = '%s/templates' % flask_folder
         self.STATIC_FOLDER = '%s/static' % flask_folder
 
+        self.parser = configparser.ConfigParser()
+        self.parser.read(find_file('_config.ini', self.flask_folder))
+
         self.unity_folder = ['%s/bindings/unity_bindings/api'%self.flask_folder]
         self.log_file = log_file or '%s/log/%s_flask.log' % (self.data_folder, name.lower())
         self.extract_secret_information()
@@ -79,17 +83,12 @@ class BaseConfig(object):
 
     def extract_secret_information(self):
         # secret key, which is not part of the repository for security reasons
-        secret_key_file = find_file('_secret_key.txt', self.flask_folder)
-        if not secret_key_file or not os.path.exists(secret_key_file):
-            secret_key_file = find_file('_secret_key.txt', self.data_folder)
-
-        assert os.path.exists(secret_key_file), 'Missing Secret Key File %s' % secret_key_file
-        admin_password, super_passwrod, demo_password, secret_key = open(secret_key_file).read().split('\n', 3)
-        if isinstance(secret_key, unicode):
-            secret_key = secret_key.encode('latin1', 'replace')  # ensure bytes
-        self.admin_password = admin_password.strip()
-        self.super_password = super_passwrod.strip()
-        self.demo_password = demo_password.strip()
+        self.admin_password = self.parser['users']['admin']
+        self.super_password = self.parser['users']['super']
+        self.demo_password = self.parser['users']['demo']
+        self.secret_key = self.parser['secret_key']['key']
+        if isinstance(self.secret_key, unicode):
+            secret_key = self.secret_key.encode('latin1', 'replace')  # ensure bytes
         self.SECRET_KEY = self.SECRET_KEY or secret_key
 
     def get_database_connection(self, source):
@@ -105,18 +104,16 @@ class BaseConfig(object):
         return 'sqlite:///%s.db' % (os.path.join(self.data_folder, self.name))
 
     def local_database_connection(self):
-        db_info = LocalData(find_file('_db_%s.json' % self.name, self.flask_folder), no_question=True)
-        os.environ['password'] = db_info['password']
+        os.environ['password'] = self.parser['local_db']['password']
         db_format = '{driver}://{user}:{password}@{host}/{dbname}'
-        self.DB_PORT = int(db_info["port"])
-        return db_format.format(**db_info._data)
+        self.DB_PORT = int(self.parser['local_db']['port'])
+        return db_format.format(**self.parser['local_db'])
 
     def remote_database_connection(self):
-        db_info = LocalData(find_file('_db_remote_%s.json' % self.name, self.flask_folder), no_question=True)
-        os.environ['password'] = db_info['password']
+        os.environ['password'] = self.parser['remote_db']['password']
         db_format = '{driver}://{user}:{password}@{host}/{dbname}'
-        self.DB_PORT = int(db_info["port"])
-        return db_format.format(**db_info._data)
+        self.DB_PORT = int(self.parser['remote_db']['port'])
+        return db_format.format(**self.parser['remote_db'])
 
 
 class LocalDebugConfig(BaseConfig):

@@ -17,3 +17,4 @@ configuration = LocalDebugConfig(domain='demo.BenChristenson.com',
                                  flask_folder=flask_folder,
                                  data_folder=os.path.dirname(flask_folder),
                                  database_source='sqlite')
+configuration.setup_logging()
