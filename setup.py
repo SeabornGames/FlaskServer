@@ -1,8 +1,11 @@
 from setuptools import setup, find_packages
 import os
+import sys
 
-DATA_DIR = os.getcwd()+'/seaborn/flask_server/blueprint/unity_bindings/cs_templates/'
-DATA_FILES = os.listdir(DATA_DIR)
+VER = sys.version_info[:2]
+ENV_MOD = 'lib/python%d.%d/site-packages' % VER
+DATA_DIR = '/seaborn/flask_server/blueprint/unity_bindings/cs_templates/'
+DATA_FILES = os.listdir(os.getcwd()+DATA_DIR)
 
 setup(
     name='seaborn-flask-server',
@@ -14,8 +17,9 @@ setup(
     author='Ben Christenson',
     author_email='Python@BenChristenson.com',
     url='https://github.com/SeabornGames/FlaskServer',
-    packages=['seaborn']+['seaborn.'+i for i in find_packages(where = './seaborn')],
-    data_files=[('',[DATA_DIR + file for file in DATA_FILES])],
+    packages=['seaborn'] +
+             ['seaborn.' + i for i in find_packages(where = './seaborn')],
+    data_files=[(ENV_MOD + DATA_DIR,[DATA_DIR + file for file in DATA_FILES])],
     install_requires=[
         "pip>=9.0.1",
         "Flask>=0.11.1",
