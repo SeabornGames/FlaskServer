@@ -7,7 +7,9 @@
 """
 __author__ = 'Ben Christenson'
 __date__ = "9/15/15"
-import os
+import os, sys
+if sys.version[0]=='3':
+    unicode = str
 from seaborn.logger import SeabornFormatter, TraceFormatter, log
 #from seaborn.python_2_to_3 import *
 from seaborn.file import find_file
@@ -119,7 +121,7 @@ class BaseConfig(object):
 class LocalDebugConfig(BaseConfig):
     """ Local Debug Config for running locally so don't worry about security """
     debug = True
-    log_level = 'TRACE'
+    log_level = 'DEBUG'
 
 
 class ProductionConfig(BaseConfig):
