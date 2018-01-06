@@ -1,12 +1,4 @@
 from setuptools import setup, find_packages
-import os
-import sys
-
-VER = sys.version_info[:2]
-ENV_MOD = 'lib/python%d.%d/site-packages' % VER
-DATA_DIR = '/seaborn/flask_server/blueprint/unity_bindings/cs_templates/'
-RELATIVE_PATH = os.path.dirname(os.path.abspath(__file__))
-DATA_FILES = os.listdir(RELATIVE_PATH+DATA_DIR)
 
 setup(
     name='seaborn-flask-server',
@@ -20,8 +12,17 @@ setup(
     url='https://github.com/SeabornGames/FlaskServer',
     packages=['seaborn']+['seaborn.' + i
                           for i in find_packages(where = './seaborn')],
-    data_files=[(ENV_MOD + DATA_DIR,[DATA_DIR + file for file in DATA_FILES])],
-    # todo Mike look for a better solution here
+    package_data={'seaborn.flask_server.blueprint.unity_bindings.cs_templates':
+                  [
+                      "api_initialize.cs",
+                      "api_monitor.cs",
+                      "behaviors.cs",
+                      "custom_api.cs",
+                      "models.cs",
+                      "namespace.cs",
+                      "operations.cs",
+                  ]
+        },
     install_requires=[
         "pip>=9.0.1",
         "Flask>=0.11.1",
