@@ -11,9 +11,9 @@ from settings.global_import import setup_flask
 def main():
     if 'runserver' in sys.argv and not '--port' in sys.argv:
         sys.argv += ['--port', str(setup_flask.configuration.SERVER_PORT)]
-    if len(sys.argv) < 2:
+    if len(sys.argv) < 2: # this is optional
         sys.argv.append('bindings')
-    #import endpoints
+    import endpoints
 
     setup_flask.setup_endpoints(endpoints)
     manager = setup_manager(setup_flask)

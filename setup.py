@@ -5,7 +5,8 @@ import sys
 VER = sys.version_info[:2]
 ENV_MOD = 'lib/python%d.%d/site-packages' % VER
 DATA_DIR = '/seaborn/flask_server/blueprint/unity_bindings/cs_templates/'
-DATA_FILES = os.listdir(os.getcwd()+DATA_DIR)
+RELATIVE_PATH = os.path.dirname(os.path.abspath(__file__))
+DATA_FILES = os.listdir(RELATIVE_PATH+DATA_DIR)
 
 setup(
     name='seaborn-flask-server',
@@ -17,9 +18,10 @@ setup(
     author='Ben Christenson',
     author_email='Python@BenChristenson.com',
     url='https://github.com/SeabornGames/FlaskServer',
-    packages=['seaborn'] +
-             ['seaborn.' + i for i in find_packages(where = './seaborn')],
+    packages=['seaborn']+['seaborn.' + i
+                          for i in find_packages(where = './seaborn')],
     data_files=[(ENV_MOD + DATA_DIR,[DATA_DIR + file for file in DATA_FILES])],
+    # todo Mike look for a better solution here
     install_requires=[
         "pip>=9.0.1",
         "Flask>=0.11.1",
@@ -42,6 +44,8 @@ setup(
         "WTForms>=2.1",
         "psycopg2>=2.7.1",
         'seaborn-meta',
+        'seaborn-logger',
+        'seaborn-timestamp',
     ],
     extras_require={'test': ['test-chain',
                              'seaborn-request-client'],

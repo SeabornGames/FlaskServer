@@ -1,11 +1,10 @@
-from endpoints.account.models import Account
 from settings.global_import import *
-from seaborn.flask_server.models import ApiModel
+log.trace("Importing endpoint account.transfer.models")
+
+from endpoints.account.models import Account
 
 from sqlalchemy.orm import backref
-from seaborn.timestamp import cst_now
 
-log.trace("Importing endpoint account.transfer.models")
 
 
 class Transfer(db.Model, ApiModel):
