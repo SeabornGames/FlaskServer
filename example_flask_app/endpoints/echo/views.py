@@ -3,7 +3,7 @@
     is up and responding.
 """
 from settings.global_import import *
-from seaborn.timestamp import datetime_to_str,cst_now
+from seaborn.timestamp.timestamp import datetime_to_str,cst_now
 from seaborn.flask_server.decorators import api_endpoint
 log.trace("Importing endpoint echo.views")
 from .models import Echo

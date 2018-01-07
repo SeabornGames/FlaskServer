@@ -2,7 +2,7 @@ import os
 import platform
 from seaborn.flask_server.setup.config import (ProductionConfig,
                                                LocalDebugConfig)
-from seaborn.file import relative_path
+from seaborn.file.file import relative_path
 
 
 if platform.platform() == \

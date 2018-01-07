@@ -3,7 +3,7 @@
     so it will contain anything they will generally need
 """
 
-from seaborn.logger import log
+from seaborn.logger.logger import log
 from .config import configuration
 from seaborn.flask_server.setup.setup_flask import SetupFlask
 from seaborn.flask_server.blueprint.blueprint import ProxyEndpoint

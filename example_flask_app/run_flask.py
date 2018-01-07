@@ -2,7 +2,7 @@
 import os
 import sys
 import traceback
-from seaborn.logger import log
+from seaborn.logger.logger import log
 
 # This is needed so endpoints can all import the same global_import
 root_path = os.path.dirname(os.path.abspath(__file__))

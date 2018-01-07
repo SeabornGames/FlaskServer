@@ -1,6 +1,6 @@
 __author__ = 'Ben Christenson'
 __date__ = "9/22/15"
-from seaborn.logger import log
+from seaborn.logger.logger import log
 import inspect
 from seaborn.flask.models.models import ApiModel
 

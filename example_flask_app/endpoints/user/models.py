@@ -1,6 +1,6 @@
 from settings.global_import import *
 from seaborn.flask_server.models import ApiModel
-from seaborn.timestamp import cst_now
+from seaborn.timestamp.timestamp import cst_now
 
 log.trace("Importing endpoint user.models")
 import re

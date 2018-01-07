@@ -14,13 +14,13 @@ from flask.blueprints import Blueprint
 import sqlalchemy
 from sqlalchemy import create_engine
 
-from seaborn.logger import log
+from seaborn.logger.logger import log
 from seaborn.flask_server.models import ApiModel
 from seaborn.flask_server.blueprint import BlueprintBinding
 from seaborn.flask_server.blueprint.python_bindings import create_python_blueprint_bindings
 from seaborn.flask_server.blueprint.unity_bindings import create_unity_blueprint_bindings
 from seaborn.flask_server import decorators
-from seaborn.timestamp import set_timezone_aware
+from seaborn.timestamp.timestamp import set_timezone_aware
 
 
 class SetupFlask(object):

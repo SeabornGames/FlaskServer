@@ -10,11 +10,11 @@ __date__ = "9/15/15"
 import os, sys
 if sys.version[0]=='3':
     unicode = str
-from seaborn.logger import SeabornFormatter, TraceFormatter, log
+from seaborn.logger.logger import SeabornFormatter, TraceFormatter, log
 #from seaborn.python_2_to_3 import *
 from seaborn.file import find_file
 import configparser
-from seaborn.timestamp import set_timezone_aware
+from seaborn.timestamp.timestamp import set_timezone_aware
 
 AUTH = ''
 CONN = ''

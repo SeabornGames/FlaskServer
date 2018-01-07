@@ -16,10 +16,10 @@ from datetime import datetime
 
 from seaborn.meta.parse_doc import parse_arg_types
 
-from seaborn.logger import log
+from seaborn.logger.logger import log
 #from seaborn.python_2_to_3 import *
 from seaborn.meta.parse_doc import parse_arg_types
-from seaborn.timestamp import str_to_datetime
+from seaborn.timestamp.timestamp import str_to_datetime
 from seaborn.meta.calling_function import function_defaults, function_path, function_arguments
 from seaborn.request_client.errors import RestException, BadRequestException, NotFoundException, GOOD_REQUEST
 from seaborn.flask_server.models import ApiModel
@@ -30,7 +30,7 @@ db = None
 RELATIVE_PATH = ''
 
 LOG_API_CALLS = False
-FILE_HANDLER = LOG_API_CALLS and open('api_calls.py', 'a') or None
+FILE_HANDLER = open('api_calls.py', 'a') if LOG_API_CALLS else None
 MEMCACHE = MemCache()
 
 
