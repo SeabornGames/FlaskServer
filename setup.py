@@ -12,16 +12,17 @@ setup(
     url='https://github.com/SeabornGames/FlaskServer',
     packages=['seaborn']+['seaborn.' + i
                           for i in find_packages(where = './seaborn')],
-    package_data={'seaborn.flask_server.blueprint.unity_bindings.cs_templates':
-                  [
-                      "api_initialize.cs",
-                      "api_monitor.cs",
-                      "behaviors.cs",
-                      "custom_api.cs",
-                      "models.cs",
-                      "namespace.cs",
-                      "operations.cs",
-                  ]
+    package_data={
+        'seaborn.flask_server.blueprint.unity_bindings.cs_templates':
+              [
+                  "api_initialize.cs",
+                  "api_monitor.cs",
+                  "behaviors.cs",
+                  "custom_api.cs",
+                  "models.cs",
+                  "namespace.cs",
+                  "operations.cs",
+              ],
         },
     install_requires=[
         "pip>=9.0.1",

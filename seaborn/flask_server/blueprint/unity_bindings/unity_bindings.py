@@ -22,7 +22,7 @@ __date__ = "10/19/15"
 import os
 import sys
 from seaborn.logger.logger import log
-from seaborn.file import clear_path, mkdir
+from seaborn.file.file import clear_path, mkdir
 from seaborn.meta.class_name import class_name_to_instant_name, url_name_to_class_name
 from collections import OrderedDict
 if sys.version[0]=='2':
