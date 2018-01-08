@@ -9,7 +9,8 @@ if sys.version_info[0] == 3:
 else:
     import thread
 
-flask_folder = os.path.abspath(__file__).replace('\\', '/').rsplit('/flask_app', 1)[0]
+flask_folder = os.path.abspath(__file__).replace('\\', '/').rsplit(
+    '/flask_app', 1)[0]
 sys.path.append(flask_folder)
 
 from test.flask_app.settings.config import configuration
@@ -43,7 +44,8 @@ class BaseTest(TestChain):
         cls.anonymous = Connection("Anonymous", base_uri=cls.SERVER)
         if cls.SERVER is DEBUG_SERVER or cls.SERVER is PROXY_DEBUG_SERVER:
             cls.start_server()
-        cls.conn = Connection('Admin-User', admin_password, 'user/login', base_uri=cls.SERVER)
+        cls.conn = Connection('Admin-User', admin_password,
+                              'user/login', base_uri=cls.SERVER)
 
     @classmethod
     def start_server(cls):
@@ -58,14 +60,17 @@ class BaseTest(TestChain):
 
     @classmethod
     def tearDownClass(cls):
-        print("\n\nThat's All Folks in %s seconds" % round(time.time() - cls.START_TIME, 2))
+        print("\n\nThat's All Folks in %s seconds" %
+              round(time.time() - cls.START_TIME, 2))
 
     def test_login(self, name='Demo-User', password=None):
-        user = Connection(name, password or self.local_data.user_password, 'user/login', base_uri=self.SERVER,
+        user = Connection(name, password or self.local_data.user_password,
+                          'user/login', base_uri=self.SERVER,
                           timeout=self.TIMEOUT)
         return user
 
-    def test_user_signup(self, username="Ben", password=None, email=None, delete_if_exists=True):
+    def test_user_signup(self, username="Ben", password=None,
+                         email=None, delete_if_exists=True):
         password = password or self.local_data.user_password
 
         if delete_if_exists:
@@ -75,8 +80,10 @@ class BaseTest(TestChain):
             except Exception as e:
                 pass
 
-        user_conn = Connection(username, password, base_uri=self.SERVER, timeout=self.TIMEOUT)
-        ret = user_conn.user.signup.put(username=username, password=password, email=email)
+        user_conn = Connection(username, password,
+                               base_uri=self.SERVER, timeout=self.TIMEOUT)
+        ret = user_conn.user.signup.put(username=username,
+                                        password=password, email=email)
 
         user_conn.user_id = ret['user_id']
         user_conn._status = "logged in from signup"

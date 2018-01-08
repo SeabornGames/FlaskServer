@@ -34,7 +34,8 @@ def smoke_test():
 
         local_data.password):
             print(
-            "Remote host is down, but connection_endpoint appears to be doing the right things")
+            "Remote host is down, but connection_endpoint "
+            "appears to be doing the right things")
         else:
             raise
     print(conn.cookies.keys())

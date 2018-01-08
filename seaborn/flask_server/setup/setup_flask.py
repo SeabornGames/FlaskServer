@@ -30,7 +30,8 @@ class SetupFlask(object):
         self.endpoints = None
         setattr(flask_login, 'COOKIE_NAME', 'token')
 
-        self.app = Flask(__name__, template_folder=self.configuration.TEMPLATE_FOLDER,
+        self.app = Flask(__name__,
+                         template_folder=self.configuration.TEMPLATE_FOLDER,
                          static_folder=self.configuration.STATIC_FOLDER)
         self.app.config.from_object(self.configuration)
         self.app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
@@ -39,7 +40,8 @@ class SetupFlask(object):
 
         self._setup_database()
         self._setup_debug_toolbar()
-        decorators.register(self.db, self.configuration.debug, '%s/' % self.configuration.flask_folder)
+        decorators.register(self.db, self.configuration.debug, '%s/' %
+                            self.configuration.flask_folder)
 
     def setup_run(self, endpoints):
         """
@@ -60,7 +62,8 @@ class SetupFlask(object):
             raise
 
     def _setup_database(self):
-        log.trace("Creating Database Connection %s" % self.app.config['SQLALCHEMY_DATABASE_URI'])
+        log.trace("Creating Database Connection %s" %
+                  self.app.config['SQLALCHEMY_DATABASE_URI'])
         self.db = SQLAlchemy(self.app)
 
     def _setup_gevent(self):
@@ -69,7 +72,8 @@ class SetupFlask(object):
             from gevent import monkey
             monkey.patch_all()
             from gevent import wsgi
-            server = wsgi.WSGIServer((self.configuration.ip_address, self.configuration.SERVER_PORT), self.app)
+            server = wsgi.WSGIServer((self.configuration.ip_address,
+                                      self.configuration.SERVER_PORT), self.app)
             return server.serve_forever
 
     def _test_database(self):
@@ -90,9 +94,12 @@ class SetupFlask(object):
         if self.configuration.setup_proxy_conn:
             from seaborn.flask_server.blueprint import ProxyEndpoint
             conn = ProxyEndpoint()
-            log.trace("Setup Proxy Connection for internal api calls %s" % id(conn))
-            blue_prints = [getattr(self.endpoints, name) for name in dir(self.endpoints) if
-                           isinstance(getattr(self.endpoints, name), BlueprintBinding)]
+            log.trace("Setup Proxy Connection for internal api calls %s" %
+                      id(conn))
+            blue_prints = [getattr(self.endpoints, name)
+                           for name in dir(self.endpoints) if
+                           isinstance(getattr(self.endpoints, name),
+                                      BlueprintBinding)]
             for blue_print in blue_prints:
                 blue_print.add_proxy_route(conn, True)
 
@@ -138,11 +145,13 @@ class SetupFlask(object):
         :return: None
         """
         log.trace("Starting App Run")
-        self.app.run(host=self.configuration.ip_address, port=self.configuration.SERVER_PORT)
+        self.app.run(host=self.configuration.ip_address,
+                     port=self.configuration.SERVER_PORT)
 
     def initialize_database(self):
         """
-            WARNING: This will reinitialize the database by dropping all tables and re-creating them.
+            WARNING: This will reinitialize the database by 
+            dropping all tables and re-creating them.
         :return: None
         """
         log.warning("Initializing Database")
@@ -152,12 +161,14 @@ class SetupFlask(object):
             pass
         self.db.create_all()
 
-    def initialize_users(self, admin_password=None, super_password=None, demo_password=None, full_name=""):
+    def initialize_users(self, admin_password=None, super_password=None,
+                         demo_password=None, full_name=""):
         """
         :param admin_password: str of the password for the admin account
         :param super_password: str of the password for the super-user account
         :param demo_password:  str of the password for the demo account
-        :param full_name:      str of full name to give to each of the admin, super, and demo accounts
+        :param full_name:      str of full name to give to each of the admin, 
+                               super, and demo accounts
         :return:               None
         """
         admin_password = admin_password or self.configuration.admin_password
@@ -166,12 +177,21 @@ class SetupFlask(object):
 
         admin_update = self.endpoints.user.views.admin_update
         base_domain = '.'.join(self.configuration.domain.split('.')[-2:])
-        demo_user = admin_update._undecorated(username='Demo-User', email='demo@%s' % base_domain,
-                                              full_name=full_name, password=demo_password, auth_level='Demo')
-        super_user = admin_update._undecorated(username='Super-User', email='super@%s' % base_domain,
-                                               full_name=full_name, password=super_password, auth_level='Superuser')
-        admin_user = admin_update._undecorated(username='Admin-User', email='admin@%s' % base_domain,
-                                               full_name=full_name, password=admin_password, auth_level='Admin')
+        demo_user = admin_update._undecorated(username='Demo-User',
+                                              email='demo@%s' % base_domain,
+                                              full_name=full_name,
+                                              password=demo_password,
+                                              auth_level='Demo')
+        super_user = admin_update._undecorated(username='Super-User',
+                                               email='super@%s' % base_domain,
+                                               full_name=full_name,
+                                               password=super_password,
+                                               auth_level='Superuser')
+        admin_user = admin_update._undecorated(username='Admin-User',
+                                               email='admin@%s' % base_domain,
+                                               full_name=full_name,
+                                               password=admin_password,
+                                               auth_level='Admin')
         self.db.session.add_all([demo_user, super_user, admin_user])
         self.db.session.commit()
 
@@ -180,10 +200,14 @@ class SetupFlask(object):
         """
         log.warning('Creating python API bindings')
         create_python_blueprint_bindings(
-            path='%s/bindings/python_bindings' % self.configuration.flask_folder,
-            blue_prints=[getattr(self.endpoints, name) for name in dir(self.endpoints) if
-                         isinstance(getattr(self.endpoints, name), BlueprintBinding)],
-            models=[getattr(self.endpoints, name) for name in dir(self.endpoints) if
+            path='%s/bindings/python_bindings' %
+                 self.configuration.flask_folder,
+            blue_prints=[getattr(self.endpoints, name)
+                         for name in dir(self.endpoints) if
+                         isinstance(getattr(self.endpoints, name),
+                                    BlueprintBinding)],
+            models=[getattr(self.endpoints, name)
+                    for name in dir(self.endpoints) if
                     inspect.isclass(getattr(self.endpoints, name)) and
                     issubclass(getattr(self.endpoints, name), ApiModel)])
 
@@ -196,11 +220,14 @@ class SetupFlask(object):
             if os.path.exists(unity_path):
                 create_unity_blueprint_bindings(
                     path=unity_path,
-                    blue_prints=[getattr(self.endpoints, name) for name in vars if
-                                 isinstance(getattr(self.endpoints, name), BlueprintBinding)],
+                    blue_prints=[getattr(self.endpoints, name)
+                                 for name in vars if
+                                 isinstance(getattr(self.endpoints, name),
+                                            BlueprintBinding)],
                     models=[getattr(self.endpoints, name) for name in vars if
                             inspect.isclass(getattr(self.endpoints, name)) and
-                            issubclass(getattr(self.endpoints, name), ApiModel)],
+                            issubclass(getattr(self.endpoints, name),
+                                       ApiModel)],
                     base_uri=self.configuration.domain,
                     clear=False,
                     class_members=[])

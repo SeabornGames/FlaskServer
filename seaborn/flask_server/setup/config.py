@@ -24,7 +24,8 @@ class BaseConfig(object):
     timezone_aware = True
 
     TESTING = False
-    DEBUG = False  # uses Flake Werkzeug debug which auto reloads on code changes
+    DEBUG = False  # uses Flake Werkzeug debug which
+                   # auto reloads on code changes
     debug = False  # it to setup debug options
     DEBUG_TOOLBAR = False
     DEBUG_TB_INTERCEPT_REDIRECTS = False
@@ -32,7 +33,8 @@ class BaseConfig(object):
     gevent = False
     SERVER_PORT = 4999
     log_file = None
-    log_str_format = "%(levelname)s   %(asctime)s.%(msecs)s   %(pathname)s:%(lineno)d>> %(message)s"
+    log_str_format = "%(levelname)s   %(asctime)s.%(msecs)s   " \
+                     "%(pathname)s:%(lineno)d>> %(message)s"
     log_level = "DEBUG"  # this requires debug turned on
     log_stdout_level = "DEBUG"  # this requires debug turned on (above)
     ip_address = '127.0.0.1'
@@ -45,7 +47,8 @@ class BaseConfig(object):
     SQLALCHEMY_DATABASE_URI = ""
     database_source = 'sqlite'
 
-    def __init__(self, domain, name, flask_folder, data_folder=None, log_file=None, database_source=None, **kwargs):
+    def __init__(self, domain, name, flask_folder, data_folder=None,
+                 log_file=None, database_source=None, **kwargs):
         """
         :param domain:
         :param name:
@@ -67,15 +70,19 @@ class BaseConfig(object):
         self.parser.read(find_file('_config.ini', self.flask_folder))
 
         self.unity_folder = ['%s/bindings/unity_bindings/api'%self.flask_folder]
-        self.log_file = log_file or '%s/log/%s_flask.log' % (self.data_folder, name.lower())
+        self.log_file = log_file or '%s/log/%s_flask.log' % \
+                                    (self.data_folder, name.lower())
         self.extract_secret_information()
-        self.SQLALCHEMY_DATABASE_URI = self.get_database_connection(database_source or self.database_source)
+        self.SQLALCHEMY_DATABASE_URI = \
+            self.get_database_connection(database_source or
+                                         self.database_source)
         for k, v in kwargs.items():
             setattr(self, k, v)
         self.timezone_aware = self.database_source != 'sqlite'
 
     def setup_logging(self):
-        SeabornFormatter(relative_pathname='/%s_flask/' % self.name, str_format=self.log_str_format,
+        SeabornFormatter(relative_pathname='/%s_flask/' % self.name,
+                         str_format=self.log_str_format,
                          date_format='%H:%M:%S'). \
             setup_logging(log_filename=self.log_file,
                           log_level=self.log_level,
@@ -90,7 +97,8 @@ class BaseConfig(object):
         self.demo_password = self.parser['users']['demo']
         self.secret_key = self.parser['secret_key']['key']
         if isinstance(self.secret_key, unicode):
-            secret_key = self.secret_key.encode('latin1', 'replace')  # ensure bytes
+            secret_key = self.secret_key.encode('latin1', 'replace')
+            # ensure bytes
         self.SECRET_KEY = self.SECRET_KEY or secret_key
 
     def get_database_connection(self, source):

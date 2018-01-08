@@ -3,7 +3,9 @@ def smoke_test():
                             ['a', 1, 0.0, 1.0, 2.12, 3.123, 4.1234]],
                            digits=3)))
 
-    test_str = "[(0, {'a': 'A', 'c': 'C', 'b': 'B'}), \n (1, {'a': 'A', 'c': 'C', 'b': 'B'}), \n (2, {'a': 'A', 'c': 'C', 'b': 'B'})]"
+    test_str = "[(0, {'a': 'A', 'c': 'C', 'b': 'B'}), \n " \
+               "(1, {'a': 'A', 'c': 'C', 'b': 'B'}), \n " \
+               "(2, {'a': 'A', 'c': 'C', 'b': 'B'})]"
     ans_str = rep(test_str)
     print(repr(ans_str) + '\n')
 
@@ -19,7 +21,9 @@ def smoke_test():
     ans_list = rep(test_list)
     print(repr(ans_list) + '\n')
 
-    test_unicode = u"[(0, {'a': 'A', 'c': 'C', 'b': 'B'}), \n (1, {'a': 'A', 'c': 'C', 'b': 'B'}), \n (2, {'a': 'A', 'c': 'C', 'b': 'B'})]"
+    test_unicode = u"[(0, {'a': 'A', 'c': 'C', 'b': 'B'}), \n " \
+                   u"(1, {'a': 'A', 'c': 'C', 'b': 'B'}), \n " \
+                   u"(2, {'a': 'A', 'c': 'C', 'b': 'B'})]"
     ans_unicode = rep(test_unicode)
     print(repr(ans_unicode) + '\n')
 
