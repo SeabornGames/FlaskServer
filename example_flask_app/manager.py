@@ -2,6 +2,7 @@
     init db, drop db, create_endpoints.
     It will run the service but isn't the only way to run the service
 """
+import os
 import sys
 
 from seaborn.flask_server.setup.manager import setup_manager
@@ -9,6 +10,9 @@ from settings.global_import import setup_flask
 
 
 def main():
+    root_path = os.path.dirname(os.path.abspath(__file__))
+    sys.path.append(os.path.dirname(root_path))
+
     if 'runserver' in sys.argv and not '--port' in sys.argv:
         sys.argv += ['--port', str(setup_flask.configuration.SERVER_PORT)]
     if len(sys.argv) < 2: # this is optional
