@@ -13,7 +13,7 @@ def main():
     root_path = os.path.dirname(os.path.abspath(__file__))
     sys.path.append(os.path.dirname(root_path))
 
-    if 'runserver' in sys.argv and not '--port' in sys.argv:
+    if 'runserver' in sys.argv and '--port' not in sys.argv:
         sys.argv += ['--port', str(setup_flask.configuration.SERVER_PORT)]
     if len(sys.argv) < 2: # this is optional
         sys.argv.append('bindings')
