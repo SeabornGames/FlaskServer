@@ -1,4 +1,4 @@
-from settings.global_import import *
+from example_flask_app.settings.global_import import *
 from seaborn.flask_server.decorators import api_endpoint
 from seaborn.meta.calling_function import function_kwargs
 
