@@ -9,7 +9,7 @@ from flask_login import current_user
 log.trace("Importing endpoint user.views")
 
 from .models import User
-from flask import Blueprint
+
 
 USER = Blueprint('user', __name__)
 
