@@ -91,7 +91,7 @@ def create_endpoint(path, module, member_endpoints):
     for child in member_endpoints.get(module.replace('_', '/'), []):
         if os.path.exists('%s/%s.py' % (path, child.replace('/', '_'))):
             fn.write('from .%s import *\n' % child.replace('/', '_'))
-    fn.write('from seaborn.rest_client.intellisense import *\n')
+    fn.write('from seaborn.request_client.intellisense import *\n')
     return fn
 
 
@@ -147,7 +147,7 @@ def create_connection(path, modules, member_endpoints):
     :return:                 None
     """
     fn = open('%s/connection.py' % path, 'w')
-    fn.write('from seaborn.rest_client.intellisense import *\n')
+    fn.write('from seaborn.request_client.intellisense import *\n')
     last = '__init__'
     for v in sorted(modules):
         if os.path.exists('%s/%s.py' % (path, v)) and not v.startswith(last):
