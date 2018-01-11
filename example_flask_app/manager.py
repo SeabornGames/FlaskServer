@@ -4,7 +4,6 @@
 """
 import os
 import sys
-
 from seaborn.flask_server.setup.manager import setup_manager
 from settings.global_import import setup_flask
 

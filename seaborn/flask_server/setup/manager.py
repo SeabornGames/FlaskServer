@@ -1,5 +1,6 @@
-""" This will accept command prompt commands to do events like init db, drop db, create_endpoints.
-    It will run the service but isn't the only way to run the service
+""" This will accept command prompt commands to do events like init db, drop db, 
+    create_endpoints. It will run the service but isn't the only way to run 
+    the service
 """
 
 __author__ = 'Ben Christenson'
@@ -25,7 +26,8 @@ def setup_manager(setup_app):
     def drop_db():
         """ This will drop the database """
         log.warning("Dropping Database")
-        if setup_app.app.debug is True or prompt_bool("Are you sure you want to lose all your data"):
+        if setup_app.app.debug is True or \
+                prompt_bool("Are you sure you want to lose all your data"):
             setup_app.db.drop_all()
 
 
@@ -63,6 +65,7 @@ def setup_manager(setup_app):
 
     @manager.command
     def setup_user():
-        initialize_users(admin_password=configuration.ADMIN_PASSWORD, demo_password=configuration.DEMO_PASSWORD)
+        initialize_users(admin_password=configuration.ADMIN_PASSWORD,
+                         demo_password=configuration.DEMO_PASSWORD)
 
     return manager

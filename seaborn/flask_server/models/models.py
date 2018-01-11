@@ -35,7 +35,8 @@ class ApiModel(object):
 
     @classmethod
     def keys(cls):
-        column_order = [col.name for col in cls.__table__.columns if col.name[0] != '_']
+        column_order = [col.name for col in cls.__table__.columns
+                        if col.name[0] != '_']
         return column_order
 
     @classmethod
@@ -57,8 +58,10 @@ class ApiModel(object):
         if key == 'moves':
             pass
         if key in cls.__table__.columns:
-            return ALCHEMY_TO_PYTHON_TYPE[repr(cls.__table__.columns[key]).split(',')[1].split('(')[0].strip()]
-        elif key in cls.__dict__ and not ':return:' in (cls.__dict__[key].__doc__ or ''):
+            return ALCHEMY_TO_PYTHON_TYPE[repr(
+                cls.__table__.columns[key]).split(',')[1].split('(')[0].strip()]
+        elif key in cls.__dict__ \
+                and not ':return:' in (cls.__dict__[key].__doc__ or ''):
             for model in models or []:
                 name = model.__name__
                 if name == key or name == key.title():
@@ -67,15 +70,19 @@ class ApiModel(object):
                     return 'list of %s' % name
             return key.title()
         elif key in cls.__dict__:
-            assert cls.__dict__[key].__doc__, "Missing doc for %s in model %s" % (key, cls.__name__)
-            return_desc = cls.__dict__[key].__doc__.split(':return:')[1].lstrip()
+            assert cls.__dict__[key].__doc__, \
+                "Missing doc for %s in model %s" % (key, cls.__name__)
+            return_desc = \
+                cls.__dict__[key].__doc__.split(':return:')[1].lstrip()
             if return_desc.startswith('list of'):
                 return ' '.join(return_desc.split()[:3])
             return return_desc.split()[0]
-        raise AttributeError('Could not find var type for key reference "%s" in object "%s"' % (key, cls.__name__))
+        raise AttributeError('Could not find var type for key reference '
+                             '"%s" in object "%s"' % (key, cls.__name__))
 
     def __repr__(self):
-        return '< %s: %s >' % (self.__class__.__name__, getattr(self, self.keys()[0]))
+        return '< %s: %s >' % (self.__class__.__name__,
+                               getattr(self, self.keys()[0]))
 
     def __iter__(self):
         return iter([getattr(self, k) for k in self.keys() if k[0] != '_'])
@@ -107,23 +114,29 @@ class ApiModel(object):
 
     def serialize(self):
         from collections import OrderedDict
-        return OrderedDict([(k, self.serial(k, v)) for k, v in self.items() if v is not None])
+        return OrderedDict([(k, self.serial(k, v))
+                            for k, v in self.items() if v is not None])
 
     @classmethod
     def required_args(cls):
         func_args = inspect.getargspec(cls.__init__).args
-        _required_args = func_args[:len(func_args) - len(function_defaults(cls.__init__))]
+        _required_args = func_args[:len(func_args) -
+                                    len(function_defaults(cls.__init__))]
         cls.required_args = lambda cls_: _required_args
         return _required_args
 
     @classmethod
     def get_or_create(cls, kwargs=None, **filtered_arguments):
         """
-        This will retrieve the item from the database for the parameters that are not none and are required by __init__
+        This will retrieve the item from the database for the parameters that 
+        are not none and are required by __init__
         If it is not in the database then it will create it.
-        If it is in the database then it will update it with values that are not None
-        :param kwargs:             dict of the parameters that don't have to be unique
-        :param filtered_arguments: dict of the parameters that need to be unique
+        If it is in the database then it will update it with 
+        values that are not None
+        :param kwargs:             dict of the parameters that 
+                                   don't have to be unique
+        :param filtered_arguments: dict of the parameters that 
+                                   need to be unique
         :return:                   obj of the model created or updated
         """
         instance = cls.query.filter_by(**filtered_arguments).first()
@@ -132,9 +145,11 @@ class ApiModel(object):
             kwargs.update(filtered_arguments)
             instance = cls(**kwargs)
         elif kwargs:
-            for k in kwargs:  # note sqlalchemy will lose changes to __dict__.update
+            for k in kwargs:  # note sqlalchemy will lose
+                              # changes to __dict__.update
                 try:
-                    if kwargs[k] is not None and kwargs[k] != getattr(instance, k, kwargs[k]):
+                    if kwargs[k] is not None \
+                            and kwargs[k] != getattr(instance, k, kwargs[k]):
                         setattr(instance, k, kwargs[k])
                 except Exception as e:
                     setattr(instance, k, kwargs[k])
@@ -150,15 +165,18 @@ class ApiModel(object):
         :return:             obj of the model
         """
         query = cls.query
-        for child in joined_load or []:  # todo replace this with a single join call
+        for child in joined_load or []:
+            # todo replace this with a single join call
             query = query.options(joinedload(child))
 
         obj = query.get(id_)
 
         if obj is None:
             raise NotFoundException('ID: %s does not exist' % id_)
-        if getattr(obj, 'user_id', current_user.user_id) != current_user.user_id and \
+        if getattr(obj, 'user_id',
+                   current_user.user_id) != current_user.user_id and \
                 not current_user.is_auth_level('Superuser'):
-            raise NotAuthorizedException('User is not the owner of this %s' % cls.__name__)
+            raise NotAuthorizedException(
+                'User is not the owner of this %s' % cls.__name__)
         return obj
 
