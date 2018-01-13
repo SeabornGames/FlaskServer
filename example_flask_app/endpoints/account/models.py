@@ -1,5 +1,5 @@
-from settings.global_import import *
-from endpoints.user.models import User
+from example_flask_app.settings.global_import import *
+from example_flask_app.endpoints.user.models import User
 from seaborn.flask_server.models import ApiModel
 from seaborn.timestamp.timestamp import cst_now, datetime_to_str
 
