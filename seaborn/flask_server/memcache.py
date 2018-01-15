@@ -30,9 +30,7 @@ class MemCache():
             bypass = request_parameters.pop('bypass_cache', False)
 
             if request_parameters:
-                cache_key += ' '+\
-                             ' '.join([str(value) for
-                                       key, value in
+                cache_key += ' '.join([str(value) for key, value in
                                        sorted(request_parameters.items())])
 
             if bypass:
