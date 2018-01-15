@@ -1,4 +1,4 @@
-from settings.global_import import *
+from example_flask_app.settings.global_import import *
 from seaborn.flask_server.models import ApiModel
 from seaborn.timestamp.timestamp import cst_now
 

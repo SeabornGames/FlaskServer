@@ -1,11 +1,10 @@
-from settings.global_import import *
+from example_flask_app.settings.global_import import *
 
 log.trace("Importing endpoint account.transfer.views")
 from .models import Transfer
-from flask import Blueprint
 from flask_login import current_user
-from endpoints.account.models import Account
-from endpoints.account.access.models import Access
+from example_flask_app.endpoints.account.models import Account
+from example_flask_app.endpoints.account.access.models import Access
 from seaborn.flask_server.decorators import api_endpoint
 from seaborn.request_client.errors import NotFoundException, UnauthorizedException
 
