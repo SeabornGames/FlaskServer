@@ -129,9 +129,9 @@ def add_endpoint_method(url, method, args, arg_defaults, func_desc):
         ret += '%s)\n' % (tab.join(["'%s'" % url] +
                                    ['%s=%s' % (arg, arg) for arg in args]))
     elif args:
-        ret += '%s%sdata=dict(%s))\n' % ("'%s'" % url,
-                                         tab, tab2.join(['%s=%s' % (arg, arg)\
-                                                         for arg in args]))
+        ret += '%s%sdata=dict(%s))\n' % \
+               ("'%s'" % url, tab,
+                tab2.join(['%s=%s' % (arg, arg) for arg in args]))
     else:
         ret += "'%s')\n" % url
     return ret
