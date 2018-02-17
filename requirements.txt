@@ -20,6 +20,7 @@ psycopg2==2.7.3.2
 python-dateutil==2.6.1
 python-editor==1.0.3
 requests==2.18.4
+seaborn-hack==1.0.0
 seaborn-logger==0.0.1
 seaborn-meta==0.0.1
 seaborn-timestamp==1.0.0
