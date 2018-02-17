@@ -1,12 +1,12 @@
 from setuptools import setup, find_packages
-
+import os
+with open(os.path.join(os.path.dirname(__file__), 'README.md')) as f:
+    long_description = f.read()
 setup(
     name='seaborn-flask-server',
     version='0.0.1',
     description='Seaborn helper wrapper around Flask',
-    long_description='This is a wrapper around the standard flask app with '
-                     'conventions, helpers, middleware, setup, '
-                     'autogeneration of client bindings',
+    long_description=long_description,
     author='Ben Christenson',
     author_email='Python@BenChristenson.com',
     url='https://github.com/SeabornGames/FlaskServer',
