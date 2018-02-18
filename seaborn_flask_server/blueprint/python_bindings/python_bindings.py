@@ -7,13 +7,13 @@ __author__ = 'Ben Christenson'
 __date__ = "10/19/15"
 import os
 import sys
-from seaborn.file.file import clear_path, mkdir
-from seaborn.meta.class_name import class_name_to_instant_name, url_name_to_class_name, create_init_files
+from seaborn_file.file import clear_path, mkdir
+from seaborn_meta.class_name import class_name_to_instant_name, url_name_to_class_name, create_init_files
 if sys.version[0]=='2':
-    from seaborn.sorters.sorters_2 import by_attribute, \
+    from seaborn_sorters.sorters_2 import by_attribute, \
         by_longest_then_by_abc, by_key, by_shortest_then_by_abc
 else:
-    from seaborn.sorters.sorters_3 import by_attribute, \
+    from seaborn_sorters.sorters_3 import by_attribute, \
         by_longest_then_by_abc, by_key, by_shortest_then_by_abc
 
 def create_python_blueprint_bindings(path, blue_prints, models,
@@ -91,7 +91,7 @@ def create_endpoint(path, module, member_endpoints):
     for child in member_endpoints.get(module.replace('_', '/'), []):
         if os.path.exists('%s/%s.py' % (path, child.replace('/', '_'))):
             fn.write('from .%s import *\n' % child.replace('/', '_'))
-    fn.write('from seaborn.request_client.intellisense import *\n')
+    fn.write('from seaborn_request_client.intellisense import *\n')
     return fn
 
 
@@ -147,7 +147,7 @@ def create_connection(path, modules, member_endpoints):
     :return:                 None
     """
     fn = open('%s/connection.py' % path, 'w')
-    fn.write('from seaborn.request_client.intellisense import *\n')
+    fn.write('from seaborn_request_client.intellisense import *\n')
     last = '__init__'
     for v in sorted(modules):
         if os.path.exists('%s/%s.py' % (path, v)) and not v.startswith(last):

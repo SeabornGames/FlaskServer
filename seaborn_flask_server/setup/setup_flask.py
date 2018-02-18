@@ -14,13 +14,13 @@ from flask.blueprints import Blueprint
 import sqlalchemy
 from sqlalchemy import create_engine
 
-from seaborn.logger.logger import log
-from seaborn.flask_server.models import ApiModel
-from seaborn.flask_server.blueprint import BlueprintBinding
-from seaborn.flask_server.blueprint.python_bindings import create_python_blueprint_bindings
-from seaborn.flask_server.blueprint.unity_bindings import create_unity_blueprint_bindings
-from seaborn.flask_server import decorators
-from seaborn.timestamp.timestamp import set_timezone_aware
+from seaborn_logger.logger import log
+from seaborn_flask_server.models import ApiModel
+from seaborn_flask_server.blueprint import BlueprintBinding
+from seaborn_flask_server.blueprint.python_bindings import create_python_blueprint_bindings
+from seaborn_flask_server.blueprint.unity_bindings import create_unity_blueprint_bindings
+from seaborn_flask_server import decorators
+from seaborn_timestamp.timestamp import set_timezone_aware
 
 
 class SetupFlask(object):
@@ -92,7 +92,7 @@ class SetupFlask(object):
 
     def _setup_proxy_conn(self):
         if self.configuration.setup_proxy_conn:
-            from seaborn.flask_server.blueprint import ProxyEndpoint
+            from seaborn_flask_server.blueprint import ProxyEndpoint
             conn = ProxyEndpoint()
             log.trace("Setup Proxy Connection for internal api calls %s" %
                       id(conn))

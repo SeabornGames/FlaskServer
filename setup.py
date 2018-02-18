@@ -1,5 +1,6 @@
-from setuptools import setup, find_packages
+from setuptools import setup
 import os
+
 with open(os.path.join(os.path.dirname(__file__), 'README.rst')) as f:
     long_description = f.read()
 
@@ -11,8 +12,7 @@ setup(
     author='Ben Christenson',
     author_email='Python@BenChristenson.com',
     url='https://github.com/SeabornGames/FlaskServer',
-    packages=['seaborn']+['seaborn.' + i
-                          for i in find_packages(where = './seaborn')],
+    packages=['seaborn_flask_server'],
     package_data={
         'seaborn.flask_server.blueprint.unity_bindings.cs_templates':
               [

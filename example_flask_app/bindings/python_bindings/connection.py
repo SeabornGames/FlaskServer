@@ -1,4 +1,4 @@
-from seaborn.request_client.intellisense import *
+from seaborn_request_client.intellisense import *
 from .account import *
 from .echo import *
 from .user import *

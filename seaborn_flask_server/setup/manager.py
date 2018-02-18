@@ -8,7 +8,7 @@ __date__ = "9/21/15"
 import os
 import sys
 import traceback
-from seaborn.logger.logger import log
+from seaborn_logger.logger import log
 from flask_script import Manager, prompt_bool
 from .setup_flask import *
 

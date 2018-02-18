@@ -6,7 +6,7 @@ __author__ = 'Ben Christenson'
 __date__ = "10/12/15"
 from flask import Blueprint
 from functools import wraps
-from seaborn.meta.calling_function import function_defaults, function_path, function_arguments
+from seaborn_meta.calling_function import function_defaults, function_path, function_arguments
 
 
 class EndpointFunction(object):

@@ -1,4 +1,4 @@
-from seaborn.request_client.intellisense import *
+from seaborn_request_client.intellisense import *
 
 
 class User_Login_Email(Endpoint):

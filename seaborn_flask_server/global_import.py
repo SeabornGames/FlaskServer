@@ -1,4 +1,4 @@
-from seaborn.logger.logger import log
+from seaborn_logger.logger import log
 
 log.trace("importing generic modules")
 import time
@@ -21,12 +21,12 @@ from sqlalchemy.orm import joinedload, backref, relationship
 from sqlalchemy.ext.associationproxy import association_proxy
 
 log.trace("importing seaborn-flask-server modules")
-from seaborn.flask_server.decorators import api_endpoint, MEMCACHE
-from seaborn.flask_server.blueprint import BlueprintBinding as Blueprint
-from seaborn.flask_server.models import ApiModel
+from seaborn_flask_server.decorators import api_endpoint, MEMCACHE
+from seaborn_flask_server.blueprint import BlueprintBinding as Blueprint
+from seaborn_flask_server.models import ApiModel
 
 log.trace("importing other seaborn modules")
-from seaborn.request_client import errors
-from seaborn.meta.calling_function import function_kwargs
-from seaborn.timestamp.timestamp import cst_now, datetime_to_str
+from seaborn_request_client import errors
+from seaborn_meta.calling_function import function_kwargs
+from seaborn_timestamp.timestamp import cst_now, datetime_to_str
 

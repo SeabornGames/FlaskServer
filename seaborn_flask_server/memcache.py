@@ -6,7 +6,7 @@
     real MemCache library.
 """
 from datetime import datetime, timedelta
-from seaborn.logger.logger import SeabornLogger
+from seaborn_logger.logger import SeabornLogger
 log = SeabornLogger()
 
 

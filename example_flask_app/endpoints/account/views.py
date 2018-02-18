@@ -3,7 +3,7 @@ from example_flask_app.settings.global_import import *
 log.trace("Importing endpoint account.views")
 from .models import Account
 from example_flask_app.endpoints.account.access.models import Access
-from seaborn.flask_server.decorators import api_endpoint
+from seaborn_flask_server.decorators import api_endpoint
 
 ACCOUNT = Blueprint('account', __name__)
 

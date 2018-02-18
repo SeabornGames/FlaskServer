@@ -4,7 +4,7 @@ import sys
 root_folder = os.path.abspath(__file__).replace('\\', '/').rsplit('/test', 1)[0]
 sys.path.append(root_folder)
 from test.test_account import AccountTest
-from seaborn.request_client.errors.errors import *
+from seaborn_request_client.errors.errors import *
 
 class AccessTest(AccountTest):
     def test_create_access(self, username="Demo-User",

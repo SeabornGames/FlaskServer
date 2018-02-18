@@ -14,16 +14,16 @@ from flask_login import current_user
 from functools import wraps
 from datetime import datetime
 
-from seaborn.meta.parse_doc import parse_arg_types
+from seaborn_meta.parse_doc import parse_arg_types
 
-from seaborn.logger.logger import log
-#from seaborn.python_2_to_3 import *
-from seaborn.meta.parse_doc import parse_arg_types
-from seaborn.timestamp.timestamp import str_to_datetime
-from seaborn.meta.calling_function import function_defaults, function_path, function_arguments
-from seaborn.request_client.errors import RestException, BadRequestException, NotFoundException, GOOD_REQUEST
-from seaborn.flask_server.models import ApiModel
-from seaborn.flask_server.memcache import MemCache
+from seaborn_logger.logger import log
+#from seaborn_python_2_to_3 import *
+from seaborn_meta.parse_doc import parse_arg_types
+from seaborn_timestamp.timestamp import str_to_datetime
+from seaborn_meta.calling_function import function_defaults, function_path, function_arguments
+from seaborn_request_client.errors import RestException, BadRequestException, NotFoundException, GOOD_REQUEST
+from seaborn_flask_server.models import ApiModel
+from seaborn_flask_server.memcache import MemCache
 
 DEBUG = True
 db = None

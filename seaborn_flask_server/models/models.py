@@ -1,16 +1,16 @@
 __author__ = 'Ben Christenson'
 __date__ = "9/22/15"
 import sys
-from seaborn.logger.logger import log
+from seaborn_logger.logger import log
 from datetime import datetime
 import inspect
 import json
 from flask_login import current_user
 from sqlalchemy.orm import joinedload
 from sqlalchemy.ext.associationproxy import _AssociationList, _AssociationDict, _AssociationCollection
-from seaborn.meta.calling_function import function_defaults
-from seaborn.request_client.errors import *
-from seaborn.timestamp.timestamp import datetime_to_str
+from seaborn_meta.calling_function import function_defaults
+from seaborn_request_client.errors import *
+from seaborn_timestamp.timestamp import datetime_to_str
 
 
 ALCHEMY_TO_PYTHON_TYPE = {'String': 'str',
