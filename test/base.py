@@ -14,12 +14,11 @@ flask_folder = os.path.abspath(__file__).replace('\\', '/').rsplit(
 sys.path.append(flask_folder)
 
 from test.flask_app.settings.config import configuration
-from seaborn_flask.example.bindings.python_bindings import Connection
+from seaborn_flask_server.example_flask_app.bindings.python_bindings import Connection
 
 from seaborn_file.file import find_file
-from seaborn_local_data.local_data import *
 from test_chain import TestChain
-from seaborn_skip_traceback import skip_path as traceback_skip_path
+from seaborn_logger.skip_traceback import skip_path as traceback_skip_path
 
 PROXY_DEBUG_SERVER = 'http://127.0.0.1:4777'
 PROXY_AWS_SERVER = 'http://127.0.0.1:4888'
