@@ -6,15 +6,9 @@
 __author__ = 'Ben Christenson'
 __date__ = "10/19/15"
 import os
-import sys
 from seaborn_file.file import clear_path, mkdir
-from seaborn_meta.class_name import class_name_to_instant_name, url_name_to_class_name, create_init_files
-if sys.version[0]=='2':
-    from seaborn_sorters.sorters_2 import by_attribute, \
-        by_longest_then_by_abc, by_key, by_shortest_then_by_abc
-else:
-    from seaborn_sorters.sorters_3 import by_attribute, \
-        by_longest_then_by_abc, by_key, by_shortest_then_by_abc
+from seaborn_meta.class_name import url_name_to_class_name
+
 
 def create_python_blueprint_bindings(path, blue_prints, models,
                                      file_start='endpoints/',
@@ -58,7 +52,9 @@ def create_python_blueprint_bindings(path, blue_prints, models,
     for module in endpoint_modules:
         url = None
         endpoints = sorted(module_endpoints[module],
-                           key=by_attribute('url', comp=by_longest_then_by_abc))
+                           key=lambda obj: obj.url,
+                           cmp=by_longest_then_by_abc)
+
         for endpoint in endpoints:
             if only_decorated and not endpoint.is_decorated:
                 continue
@@ -190,3 +186,7 @@ def add_endpoint(fn, url, member_endpoints):
         if not url in member_endpoints.setdefault(parent, []):
             member_endpoints[parent].append(url)
         url = parent
+
+
+def by_longest_then_by_abc(obj):
+    return -1 * len(obj), obj

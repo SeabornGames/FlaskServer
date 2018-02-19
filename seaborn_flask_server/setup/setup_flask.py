@@ -1,6 +1,5 @@
-""" This will module contains the setup_flask function as well as registry functions """
-__author__ = 'Ben Christenson'
-__date__ = "9/15/15"
+""" This will module contains the setup_flask function as well as registry
+    functions """
 import os
 import inspect
 import sys

@@ -12,41 +12,42 @@ from seaborn_logger.logger import log
 from flask_script import Manager, prompt_bool
 from .setup_flask import *
 
-def setup_manager(setup_app):
-    manager = Manager(setup_app.app)
+
+def setup_manager(setup_flask):
+    manager = Manager(setup_flask.app)
 
     @manager.command
     def init_db():
         """ This will initialize the database """
-        setup_app.initialize_database()
-        setup_app.initialize_users()
+        setup_flask.initialize_database()
+        setup_flask.initialize_users()
 
 
     @manager.command
     def drop_db():
         """ This will drop the database """
         log.warning("Dropping Database")
-        if setup_app.app.debug is True or \
+        if setup_flask.app.debug is True or \
                 prompt_bool("Are you sure you want to lose all your data"):
-            setup_app.db.drop_all()
+            setup_flask.db.drop_all()
 
 
     @manager.command
     def python_bindings():
         """ This will recreate the python bindings """
-        setup_app.create_python_bindings()
+        setup_flask.create_python_bindings()
 
 
     @manager.command
     def unity_bindings():
         """ This will recreate the unity bindings """
-        setup_app.create_unity_bindings()
+        setup_flask.create_unity_bindings()
 
 
     @manager.command
     def bindings():
-        setup_app.create_python_bindings()
-        setup_app.create_unity_bindings()
+        setup_flask.create_python_bindings()
+        setup_flask.create_unity_bindings()
 
 
     @manager.command

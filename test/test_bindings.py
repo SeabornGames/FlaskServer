@@ -1,22 +1,29 @@
-import unittest, os
-from example_flask_app.manager import main
+import unittest
+import os
+import sys
 
-BASE_DIR = '/'.join(os.path.abspath(__file__).replace('\\','/').split('/')[:-2])
-XMPL_DIR = os.path.join(BASE_DIR, 'example_bindings')
-TEST_DIR = os.path.join(BASE_DIR, 'example_flask_app',
-                        'bindings','python_bindings')
+sys.path.append(os.path.dirname(os.path.dirname(__file__)))
+
+from seaborn_file.file import clear_path
+from example_flask_app.settings.global_import import setup_flask
+
+BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+EXPECT_DIR = os.path.join(BASE_DIR, 'example_bindings')
+RESULT_DIR = os.path.join(BASE_DIR, 'example_flask_app',
+                          'bindings', 'python_bindings')
+
 
 class test_bindings(unittest.TestCase):
-
     def startTestRun(self):
-        main()
+        clear_path(RESULT_DIR)
+        setup_flask.create_python_bindings()
 
     def compare_files(self, filename):
-        with open(os.path.join(XMPL_DIR, filename), 'r') as fp:
+        with open(os.path.join(EXPECT_DIR, filename), 'r') as fp:
             expected = fp.read()
-        with open(os.path.join(TEST_DIR, filename), 'r') as fp:
-            actual = fp.read()
-        self.assertEqual(expected, actual)
+        with open(os.path.join(RESULT_DIR, filename), 'r') as fp:
+            result = fp.read()
+        self.assertEqual(expected, result)
 
     def test_connection(self):
         self.compare_files('connection.py')
@@ -35,6 +42,9 @@ class test_bindings(unittest.TestCase):
 
     def test_user(self):
         self.compare_files('user.py')
+
+    def test_init(self):
+        self.compare_files('__init__.py')
 
 
 if __name__ == '__main__':

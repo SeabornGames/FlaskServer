@@ -33,12 +33,6 @@ from seaborn_logger.logger import log
 from seaborn_file.file import clear_path, mkdir
 from seaborn_meta.class_name import class_name_to_instant_name, url_name_to_class_name
 from collections import OrderedDict
-if sys.version[0]=='2':
-    from seaborn_sorters.sorters_2 import by_attribute, \
-        by_longest_then_by_abc, by_key, by_shortest_then_by_abc
-else:
-    from seaborn_sorters.sorters_3 import by_attribute, \
-        by_longest_then_by_abc, by_key, by_shortest_then_by_abc
 
 PATH = os.path.split(os.path.abspath(__file__))[0]
 tab1 = '\n    '
@@ -177,12 +171,13 @@ def create_unity_blueprint_bindings(path, blue_prints, models,
         behaviors_file = None
         url = None
         endpoints = sorted(module_endpoints[module],
-                           key=by_attribute('url', comp=by_longest_then_by_abc))
+                           key=lambda obj: obj.url,
+                           cmp=by_longest_then_by_abc)
         for endpoint in endpoints:
             try:
-                if only_decorated and (not endpoint.is_decorated or \
-                                                   endpoint.binding == False):
-                    continue
+                if not endpoint.is_decorated or endpoint.binding == False:
+                    if only_decorated:
+                        continue
                 if operations_file is None:
                     operations_file = open(os.path.join(path, 'operations',
                                                         module + '.cs'), 'w')
@@ -555,3 +550,7 @@ def null_list(_type, defaults):
             ret.append('if(%s != null && %s.Count == 0)' % (arg, arg))
             ret.append('    %s = null;' % arg)
     return ret
+
+
+def by_longest_then_by_abc(obj):
+    return -1 * len(obj), obj

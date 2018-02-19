@@ -26,6 +26,7 @@ setup(
               ],
         },
     install_requires=[
+        "configparser",
         "pip",
         "Flask",
         "Flask-DebugToolbar",

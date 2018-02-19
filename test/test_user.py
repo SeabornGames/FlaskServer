@@ -1,11 +1,8 @@
 import os
 import sys
 
-flask_folder = os.path.abspath(__file__).replace('\\',
-                                                 '/').rsplit('/flask_app', 1)[0]
-sys.path.append(flask_folder)
-
-from test.base import *
+sys.path.append(os.path.dirname(os.path.dirname(__file__)))
+from test.test_base import *
 
 
 class UserTest(BaseTest):
@@ -32,14 +29,14 @@ class UserTest(BaseTest):
         user = ben.user.post(username=username)
 
     def test_user_update_password(self, username='Ali'):
-        updated_password = '%s_updated' % self.local_data.user_password
-        conn = self.test_user_signup(username, self.local_data.user_password)
+        updated_password = '%s_updated' % self.config['users']['user_pwd']
+        conn = self.test_user_signup(username, self.config['users']['user_pwd'])
         user = conn.user.post(password=updated_password)
         conn.user.login.post(user['username'], updated_password)
-        user = conn.user.post(password=self.local_data.user_password)
+        user = conn.user.post(password=self.config['users']['user_pwd'])
 
     def test_user_logout(self):
-        conn = Connection('Demo-User', self.local_data.user_password,
+        conn = Connection('Demo-User', self.config['users']['user_pwd'],
                           base_uri=self.SERVER, timeout=self.TIMEOUT,
                           login_url='user/login')
         user = conn.user.get()

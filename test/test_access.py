@@ -1,10 +1,10 @@
 import os
 import sys
 
-root_folder = os.path.abspath(__file__).replace('\\', '/').rsplit('/test', 1)[0]
-sys.path.append(root_folder)
+sys.path.append(os.path.dirname(os.path.dirname(__file__)))
 from test.test_account import AccountTest
-from seaborn_request_client.errors.errors import *
+from seaborn_request_client.errors import NotFoundException
+
 
 class AccessTest(AccountTest):
     def test_create_access(self, username="Demo-User",

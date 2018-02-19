@@ -8,10 +8,10 @@
 __author__ = 'Ben Christenson'
 __date__ = "9/15/15"
 import os, sys
-if sys.version[0]=='3':
+
+if sys.version[0] == '3':
     unicode = str
 from seaborn_logger.logger import SeabornFormatter, TraceFormatter, log
-#from seaborn_python_2_to_3 import *
 from seaborn_file.file import find_file
 import configparser
 from seaborn_timestamp.timestamp import set_timezone_aware
@@ -19,13 +19,14 @@ from seaborn_timestamp.timestamp import set_timezone_aware
 AUTH = ''
 CONN = ''
 
+
 class BaseConfig(object):
     """ Base config for Flask """
     timezone_aware = True
 
     TESTING = False
     DEBUG = False  # uses Flake Werkzeug debug which
-                   # auto reloads on code changes
+    # auto reloads on code changes
     debug = False  # it to setup debug options
     DEBUG_TOOLBAR = False
     DEBUG_TB_INTERCEPT_REDIRECTS = False
@@ -69,7 +70,8 @@ class BaseConfig(object):
         self.parser = configparser.ConfigParser()
         self.parser.read(find_file('_config.ini', self.flask_folder))
 
-        self.unity_folder = ['%s/bindings/unity_bindings/api'%self.flask_folder]
+        self.unity_folder = [
+            '%s/bindings/unity_bindings/api' % self.flask_folder]
         self.log_file = log_file or '%s/log/%s_flask.log' % \
                                     (self.data_folder, name.lower())
         self.extract_secret_information()
@@ -108,7 +110,7 @@ class BaseConfig(object):
             return self.remote_database_connection()
         if source == 'local':
             return self.local_database_connection()
-        raise Exception("Unknown database connection source: %s"%source)
+        raise Exception("Unknown database connection source: %s" % source)
 
     def sqllite_database_connection(self):
         return 'sqlite:///%s.db' % (os.path.join(self.data_folder, self.name))
