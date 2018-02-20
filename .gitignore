@@ -113,3 +113,4 @@ venv3/
 _*.txt
 .idea/
 .DS_Store
+example_flask_app/bindings/

@@ -1,25 +1,26 @@
 """ This will module contains the setup_flask function as well as registry
     functions """
-import os
 import inspect
+import os
 import sys
-
-from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
-import flask_login
-from flask_login import LoginManager
-from flask.blueprints import Blueprint
-
-import sqlalchemy
 from sqlalchemy import create_engine
 
+import flask_login
+import sqlalchemy
+from flask import Flask
+from flask.blueprints import Blueprint
+from flask_login import LoginManager
+from flask_sqlalchemy import SQLAlchemy
 from seaborn_logger.logger import log
-from seaborn_flask_server.models import ApiModel
-from seaborn_flask_server.blueprint import BlueprintBinding
-from seaborn_flask_server.blueprint.python_bindings import create_python_blueprint_bindings
-from seaborn_flask_server.blueprint.unity_bindings import create_unity_blueprint_bindings
-from seaborn_flask_server import decorators
 from seaborn_timestamp.timestamp import set_timezone_aware
+
+from seaborn_flask_server import decorators
+from seaborn_flask_server.blueprint import BlueprintBinding
+from seaborn_flask_server.blueprint.python_bindings import \
+    create_python_blueprint_bindings
+from seaborn_flask_server.blueprint.unity_bindings import \
+    create_unity_blueprint_bindings
+from seaborn_flask_server.models import ApiModel
 
 
 class SetupFlask(object):
@@ -51,13 +52,13 @@ class SetupFlask(object):
             self.setup_endpoints(endpoints)
             self._setup_login_manager()
             self._setup_proxy_conn()
-            self._test_database()
+            # self._test_database() # todo remove comment and fix
 
             run = self._setup_gevent() or self._run_server
             log.trace("Done with App Setup")
             return run
         except Exception as ex:
-            log.error("Exception:: %s" % ex)
+            log.exception(ex)
             raise
 
     def _setup_database(self):
@@ -214,16 +215,17 @@ class SetupFlask(object):
         """
         """
         log.warning('Creating unity API bindings')
-        vars = dir(self.endpoints)
-        for unity_path in self.configuration.unity_folder:
-            if os.path.exists(unity_path):
+        names = dir(self.endpoints)
+        for unity_path in self.configuration.unity_folders:
+            if (os.path.exists(unity_path) or
+                        unity_path == self.configuration.unity_folders[0]):
                 create_unity_blueprint_bindings(
                     path=unity_path,
                     blue_prints=[getattr(self.endpoints, name)
-                                 for name in vars if
+                                 for name in names if
                                  isinstance(getattr(self.endpoints, name),
                                             BlueprintBinding)],
-                    models=[getattr(self.endpoints, name) for name in vars if
+                    models=[getattr(self.endpoints, name) for name in names if
                             inspect.isclass(getattr(self.endpoints, name)) and
                             issubclass(getattr(self.endpoints, name),
                                        ApiModel)],

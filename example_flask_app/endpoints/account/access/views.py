@@ -4,8 +4,8 @@ log.trace("Importing endpoint user.views")
 from .models import Access
 from example_flask_app.endpoints.account.models import Account
 from flask_login import current_user
+from seaborn_request_client.errors import UnauthorizedException, NotFoundException
 from seaborn_flask_server.decorators import api_endpoint
-from seaborn_request_client.errors import NotFoundException
 
 ACCESS = Blueprint('account_access', __name__)
 

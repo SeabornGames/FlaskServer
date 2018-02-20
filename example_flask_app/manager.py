@@ -5,7 +5,7 @@
 import os
 import sys
 from seaborn_flask_server.setup.manager import setup_manager
-from example_flask_app.settings.global_import import setup_flask
+from settings.global_import import setup_flask
 
 
 def main():

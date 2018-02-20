@@ -153,7 +153,7 @@ def create_unity_blueprint_bindings(path, blue_prints, models,
               getattr(blue_print, 'endpoints', [])])
 
     endpoint_modules = sorted(module_endpoints.keys(),
-                              key=by_longest_then_by_abc)
+                              cmp=by_longest_then_by_abc)
     models_needed_for_return = {}
 
     custom_api_file = open('%s/_%sCustomApi.cs' % (os.path.split(path)[0],
@@ -552,5 +552,17 @@ def null_list(_type, defaults):
     return ret
 
 
-def by_longest_then_by_abc(obj):
-    return -1 * len(obj), obj
+if sys.version_info[0] == 2:
+    def by_longest_then_by_abc(obj1, obj2):
+        if len(obj1) > len(obj2):
+            return -1
+        if len(obj1) < len(obj2):
+            return 1
+        if obj1 > obj2:
+            return -1
+        if obj1 < obj2:
+            return 1
+        return 0
+else:
+    def by_longest_then_by_abc(obj):
+        return -1 * len(obj), obj

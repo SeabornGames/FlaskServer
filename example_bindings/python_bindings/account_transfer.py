@@ -39,24 +39,6 @@ class Account_Transfer_Deposit(Endpoint):
                                              receipt=receipt))
 
 
-class Account_Transfer_Array(Endpoint):
-
-    def get(self, account_id, withdraws_only=None, limit=None, offset=None):
-        """
-        :param account_id:     int of the account_id to get transfer for
-        :param withdraws_only: bool if true only gets withdraw transfer
-            if false only gets deposit, default gets both
-        :param offset:         int of the offset to use
-        :param limit:          int of max number of puzzles to return
-        :return:               list of Transfer dict
-        """
-        return self.connection.get('account/transfer/array',
-                                   account_id=account_id,
-                                   withdraws_only=withdraws_only,
-                                   limit=limit,
-                                   offset=offset)
-
-
 class Account_Transfer_Claim(Endpoint):
 
     def put(self, transfer_id, amount, created_timestamp, receipt):
@@ -73,6 +55,24 @@ class Account_Transfer_Claim(Endpoint):
                                              amount=amount,
                                              created_timestamp=created_timestamp,
                                              receipt=receipt))
+
+
+class Account_Transfer_Array(Endpoint):
+
+    def get(self, account_id, withdraws_only=None, limit=None, offset=None):
+        """
+        :param account_id:     int of the account_id to get transfer for
+        :param withdraws_only: bool if true only gets withdraw transfer
+            if false only gets deposit, default gets both
+        :param offset:         int of the offset to use
+        :param limit:          int of max number of puzzles to return
+        :return:               list of Transfer dict
+        """
+        return self.connection.get('account/transfer/array',
+                                   account_id=account_id,
+                                   withdraws_only=withdraws_only,
+                                   limit=limit,
+                                   offset=offset)
 
 
 class Account_Transfer_Admin(Endpoint):

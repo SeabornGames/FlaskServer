@@ -3,9 +3,8 @@
     It assumes that a list of seaborn blueprints 
     will be passed in with route information.
 """
-__author__ = 'Ben Christenson'
-__date__ = "10/19/15"
 import os
+import sys
 from seaborn_file.file import clear_path, mkdir
 from seaborn_meta.class_name import url_name_to_class_name
 
@@ -48,7 +47,7 @@ def create_python_blueprint_bindings(path, blue_prints, models,
                              if getattr(blue_print, 'endpoints', [])])
 
     endpoint_modules = sorted(module_endpoints.keys(),
-                              key=by_longest_then_by_abc)
+                              cmp=by_longest_then_by_abc)
     for module in endpoint_modules:
         url = None
         endpoints = sorted(module_endpoints[module],
@@ -64,7 +63,8 @@ def create_python_blueprint_bindings(path, blue_prints, models,
             if url != endpoint.url:
                 url = endpoint.url
                 for child_module in sorted(member_endpoints,
-                                           key=by_longest_then_by_abc):
+                                           # key = lambda obj: obj.url,
+                                           cmp=by_longest_then_by_abc):
                     if child_module.startswith(url) and child_module != url:
                         # then there is a middle generation without endpoints
                         add_endpoint(fn, child_module, member_endpoints)
@@ -151,7 +151,8 @@ def create_connection(path, modules, member_endpoints):
             last = v
 
     for module in sorted(member_endpoints.keys(),
-                         key=by_longest_then_by_abc)[:-1]:
+                         cmp=by_longest_then_by_abc
+                         )[:-1]:
         add_endpoint(fn, module, member_endpoints)
 
     fn.write('\n\nclass Connection(ConnectionEndpoint):\n')
@@ -188,5 +189,17 @@ def add_endpoint(fn, url, member_endpoints):
         url = parent
 
 
-def by_longest_then_by_abc(obj):
-    return -1 * len(obj), obj
+if sys.version_info[0] == 2:
+    def by_longest_then_by_abc(obj1, obj2):
+        if len(obj1) > len(obj2):
+            return -1
+        if len(obj1) < len(obj2):
+            return 1
+        if obj1 > obj2:
+            return -1
+        if obj1 < obj2:
+            return 1
+        return 0
+else:
+    def by_longest_then_by_abc(obj):
+        return -1 * len(obj), obj

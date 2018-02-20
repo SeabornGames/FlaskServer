@@ -70,7 +70,7 @@ class BaseConfig(object):
         self.parser = configparser.ConfigParser()
         self.parser.read(find_file('_config.ini', self.flask_folder))
 
-        self.unity_folder = [
+        self.unity_folders = [
             '%s/bindings/unity_bindings/api' % self.flask_folder]
         self.log_file = log_file or '%s/log/%s_flask.log' % \
                                     (self.data_folder, name.lower())
