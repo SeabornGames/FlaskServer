@@ -39,24 +39,6 @@ class Account_Transfer_Deposit(Endpoint):
                                              receipt=receipt))
 
 
-class Account_Transfer_Claim(Endpoint):
-
-    def put(self, transfer_id, amount, created_timestamp, receipt):
-        """
-        :param transfer_id:        int of the account_id to deposit the money to
-        :param amount:             float of the amount to transfer
-        :param created_timestamp:  str of the validated receipt that money
-            has been received
-        :param receipt:            str of the receipt
-        :return:                   Transfer dict
-        """
-        return self.connection.put('account/transfer/claim',
-                                   data=dict(transfer_id=transfer_id,
-                                             amount=amount,
-                                             created_timestamp=created_timestamp,
-                                             receipt=receipt))
-
-
 class Account_Transfer_Array(Endpoint):
 
     def get(self, account_id, withdraws_only=None, limit=None, offset=None):
@@ -73,6 +55,24 @@ class Account_Transfer_Array(Endpoint):
                                    withdraws_only=withdraws_only,
                                    limit=limit,
                                    offset=offset)
+
+
+class Account_Transfer_Claim(Endpoint):
+
+    def put(self, transfer_id, amount, created_timestamp, receipt):
+        """
+        :param transfer_id:        int of the account_id to deposit the money to
+        :param amount:             float of the amount to transfer
+        :param created_timestamp:  str of the validated receipt that money
+            has been received
+        :param receipt:            str of the receipt
+        :return:                   Transfer dict
+        """
+        return self.connection.put('account/transfer/claim',
+                                   data=dict(transfer_id=transfer_id,
+                                             amount=amount,
+                                             created_timestamp=created_timestamp,
+                                             receipt=receipt))
 
 
 class Account_Transfer_Admin(Endpoint):

@@ -11,8 +11,10 @@ from flask import Flask
 from flask.blueprints import Blueprint
 from flask_login import LoginManager
 from flask_sqlalchemy import SQLAlchemy
+
 from seaborn_logger.logger import log
 from seaborn_timestamp.timestamp import set_timezone_aware
+from seaborn_file.file import mkdir
 
 from seaborn_flask_server import decorators
 from seaborn_flask_server.blueprint import BlueprintBinding
@@ -196,8 +198,6 @@ class SetupFlask(object):
         self.db.session.commit()
 
     def create_python_bindings(self):
-        """
-        """
         log.warning('Creating python API bindings')
         create_python_blueprint_bindings(
             path='%s/bindings/python_bindings' %
@@ -211,14 +211,13 @@ class SetupFlask(object):
                     inspect.isclass(getattr(self.endpoints, name)) and
                     issubclass(getattr(self.endpoints, name), ApiModel)])
 
-    def create_unity_bindings(self):
-        """
-        """
+    def create_unity_bindings(self, create_first_directory=True):
         log.warning('Creating unity API bindings')
+        if create_first_directory:
+            mkdir(self.configuration.unity_folders[0])
         names = dir(self.endpoints)
         for unity_path in self.configuration.unity_folders:
-            if (os.path.exists(unity_path) or
-                        unity_path == self.configuration.unity_folders[0]):
+            if os.path.exists(unity_path):
                 create_unity_blueprint_bindings(
                     path=unity_path,
                     blue_prints=[getattr(self.endpoints, name)

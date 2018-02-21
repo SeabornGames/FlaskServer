@@ -11,7 +11,7 @@ import os, sys
 
 if sys.version[0] == '3':
     unicode = str
-from seaborn_logger.logger import SeabornFormatter, TraceFormatter, log
+from seaborn_logger.logger import SeabornFormatter, log
 from seaborn_file.file import find_file
 import configparser
 from seaborn_timestamp.timestamp import set_timezone_aware

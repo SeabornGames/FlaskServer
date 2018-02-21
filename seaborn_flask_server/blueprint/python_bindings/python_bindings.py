@@ -9,7 +9,8 @@ from seaborn_file.file import clear_path, mkdir
 from seaborn_meta.class_name import url_name_to_class_name
 
 
-def create_python_blueprint_bindings(path, blue_prints, models,
+def create_python_blueprint_bindings(path, blue_prints,
+                                     models,
                                      file_start='endpoints/',
                                      file_end='/views.py',
                                      clear=True, only_decorated=True,
@@ -17,9 +18,9 @@ def create_python_blueprint_bindings(path, blue_prints, models,
     """
     :param path:           str of the full path to save the connection endpoint
     :param blue_prints:    list of BlueprintBinding instances with endpoints
-    :param models:         list of models that could be referenced 
+    :param models:         list of models that could be referenced
                            in the return doc
-    :param file_start:     str of keyword to split the filename on 
+    :param file_start:     str of keyword to split the filename on
                            to get the relative path to start from
     :param file_end:       str of keyword to split the filename on 
                            to get the relative path to end at
@@ -71,7 +72,9 @@ def create_python_blueprint_bindings(path, blue_prints, models,
                 add_endpoint(fn, url, member_endpoints)
 
             for method in endpoint.methods:
-                fn.write(add_endpoint_method(url, method, endpoint.args,
+                fn.write(add_endpoint_method(url,
+                                             method,
+                                             endpoint.args,
                                              endpoint.arg_defaults,
                                              endpoint.doc))
 
@@ -151,12 +154,11 @@ def create_connection(path, modules, member_endpoints):
             last = v
 
     for module in sorted(member_endpoints.keys(),
-                         cmp=by_longest_then_by_abc
-                         )[:-1]:
+                         cmp=by_longest_then_by_abc)[:-1]:
         add_endpoint(fn, module, member_endpoints)
 
     fn.write('\n\nclass Connection(ConnectionEndpoint):\n')
-    for member in member_endpoints['']:
+    for member in member_endpoints.get('', []):
         fn.write('    %s = %s()\n' % (member.split('/')[-1],
                                       url_name_to_class_name(member)))
     open('%s/__init__.py' % path, 'w').write('from .connection import *')
@@ -196,9 +198,9 @@ if sys.version_info[0] == 2:
         if len(obj1) < len(obj2):
             return 1
         if obj1 > obj2:
-            return -1
-        if obj1 < obj2:
             return 1
+        if obj1 < obj2:
+            return -1
         return 0
 else:
     def by_longest_then_by_abc(obj):

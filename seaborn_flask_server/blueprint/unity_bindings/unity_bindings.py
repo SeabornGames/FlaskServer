@@ -31,7 +31,7 @@ import os
 import sys
 from seaborn_logger.logger import log
 from seaborn_file.file import clear_path, mkdir
-from seaborn_meta.class_name import class_name_to_instant_name, url_name_to_class_name
+from seaborn_meta.class_name import url_name_to_class_name
 from collections import OrderedDict
 
 PATH = os.path.split(os.path.abspath(__file__))[0]
@@ -40,10 +40,9 @@ tab2 = '\n        '
 tab3 = '\n            '
 tab4 = '\n                '
 
-PYTHON_TO_C_TYPE = {'str': 'string',
-                    'datetime': 'string',  # public DateTime dt =
-                                        # DateTime.Parse("2016-02-04 05:05:05");
-                                        # todo
+# public DateTime dt = DateTime.Parse("2016-02-04 05:05:05");
+PYTHON_TO_C_TYPE = {'datetime': 'string',
+                    'str': 'string',
                     'bool': 'bool',
                     'int': 'int',
                     'float': 'float',
@@ -115,22 +114,22 @@ def create_unity_blueprint_bindings(path, blue_prints, models,
 
     short_namespace_instance = instance_name(namespace.split('.')[-1])
     binding_parameters = dict(
-        namespace=namespace,  # api.MechanicsOfPlay
-        short_namespace=short_namespace,  # MechanicsOfPlay
-        short_namespace_instant=short_namespace_instance,  # mechanicsOfPlay
-        remote_base_uri='http://' + base_uri,  # api.MechanicsOfPlay.com
-        local_base_uri='http://local.' + base_uri,  # local.api.MechanicsOfPlay.com
+        namespace=namespace,  # api.MySite
+        short_namespace=short_namespace,  # MySite
+        short_namespace_instant=short_namespace_instance,  # mySite
+        remote_base_uri='http://' + base_uri,  # api.MySite.com
+        local_base_uri='http://local.' + base_uri,  # local.api.mysite.com
         debug_base_uri='http://127.0.0.1:4999',  # 127.0.0.1:4999
         name=None,  # HelloEchoGet
         name_instance=None,  # helloEchoGet
-        arg_queries=None,  # [HttpFormField]\n        public string message="default";
+        arg_queries=None,  # [HttpFormField]\n ublic string message="default";
         arg_declarations=None,  # public string key;\n
         arg_assignments=None,  # this.key = key;\n
         arg_params=None,  # key, value
         args=None,  # string key, string value
         custom_arguments=None,  # string key; // description
 
-        response_type=None,  # api.MechancisOfPlay.models.Hello
+        response_type=None,  # api.MySite.models.Hello
         response_desc=None,  # // hello test application
         response_str= 'responseData.ToString()',
         model=None,  # Hello
@@ -139,8 +138,8 @@ def create_unity_blueprint_bindings(path, blue_prints, models,
         method=None,  # GET
         sub_uri=None,  # hello/echo
         response_converter=None,  # base.FromResponse(response);
-        behaviors_declarations=[],  # public behaviors.HelloEchoGet helloEchoGet;\n
-        behaviors_instantiation=[],  # helloEchoGet = gameObject.AddComponent<behaviors.HelloEchoGet> ();\n
+        behaviors_declarations=[],
+        behaviors_instantiation=[],
         null=None,  # null
         class_members=tab2.join(class_members)  # public int game_id = 0;\n
     )
@@ -198,7 +197,7 @@ def create_unity_blueprint_bindings(path, blue_prints, models,
                         _type[arg] += '?'
 
                 dict_key = return_type.split('<')[-1].split('>')[0]
-                dict_key.replace('models.', '')
+                dict_key = dict_key.replace('models.', '')
                 models_needed_for_return[dict_key] = endpoint
 
                 assert len(_type) >= len(endpoint.args), \
