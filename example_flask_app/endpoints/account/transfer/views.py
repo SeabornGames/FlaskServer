@@ -5,8 +5,8 @@ from .models import Transfer
 from flask_login import current_user
 from example_flask_app.endpoints.account.models import Account
 from example_flask_app.endpoints.account.access.models import Access
-from seaborn.flask_server.decorators import api_endpoint
-from seaborn.request_client.errors import NotFoundException, UnauthorizedException
+from seaborn_flask_server.decorators import api_endpoint
+from seaborn_request_client.errors import NotFoundException, UnauthorizedException
 
 TRANSFER = Blueprint('transfer', __name__)
 

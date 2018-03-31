@@ -1,7 +1,7 @@
 from example_flask_app.settings.global_import import *
 from example_flask_app.endpoints.user.models import User
-from seaborn.flask_server.models import ApiModel
-from seaborn.timestamp.timestamp import cst_now, datetime_to_str
+from seaborn_flask_server.models import ApiModel
+from seaborn_timestamp.timestamp import cst_now, datetime_to_str
 
 from sqlalchemy.ext.associationproxy import association_proxy
 

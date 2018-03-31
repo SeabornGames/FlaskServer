@@ -1,7 +1,7 @@
 from example_flask_app.settings.global_import import *
 from example_flask_app.endpoints.user.models import User
 from example_flask_app.endpoints.account.models import Account
-from seaborn.flask_server.models import ApiModel
+from seaborn_flask_server.models import ApiModel
 
 from sqlalchemy.orm import backref
 

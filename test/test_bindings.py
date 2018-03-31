@@ -1,40 +1,49 @@
-import unittest, os
-from example_flask_app.manager import main
+import unittest
+import os
+import sys
 
-BASE_DIR = '/'.join(os.path.abspath(__file__).replace('\\','/').split('/')[:-2])
-XMPL_DIR = os.path.join(BASE_DIR, 'example_bindings')
-TEST_DIR = os.path.join(BASE_DIR, 'example_flask_app',
-                        'bindings','python_bindings')
+sys.path.append(os.path.dirname(os.path.dirname(__file__)))
 
-class test_bindings(unittest.TestCase):
+from seaborn_file.file import clear_path, file_list
+from example_flask_app.settings.global_import import setup_flask
+from example_flask_app import endpoints
+BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+EXPECT_DIR = os.path.join(BASE_DIR, 'example_bindings')
+RESULT_DIR = os.path.join(BASE_DIR, 'example_flask_app', 'bindings')
 
-    def startTestRun(self):
-        main()
 
-    def compare_files(self, filename):
-        with open(os.path.join(XMPL_DIR, filename), 'r') as fp:
+class TestBindings(unittest.TestCase):
+    def compare_files(self, file):
+        with open(file, 'r') as fp:
             expected = fp.read()
-        with open(os.path.join(TEST_DIR, filename), 'r') as fp:
-            actual = fp.read()
-        self.assertEqual(expected, actual)
+        with open(file.replace(EXPECT_DIR, RESULT_DIR), 'r') as fp:
+            result = fp.read()
+        self.assertEqual(expected, result, file.replace(EXPECT_DIR, ''))
 
-    def test_connection(self):
-        self.compare_files('connection.py')
 
-    def test_account(self):
-        self.compare_files('account.py')
+    def test_python_bindings(self):
+        setup_flask.setup_run(endpoints)
+        clear_path(os.path.join(RESULT_DIR, 'python_bindings'))
+        setup_flask.create_python_bindings()
+        path = os.path.join(EXPECT_DIR, 'python_bindings')
+        for file in file_list('*.*', path):
+            if sys.version_info[0] == 2:
+                self.compare_files(file)
+            else:
+                with self.subTest(file.replace(EXPECT_DIR, '')):
+                    self.compare_files(file)
 
-    def test_account_access(self):
-        self.compare_files('account_access.py')
-
-    def test_account_transfer(self):
-        self.compare_files('account_transfer.py')
-
-    def test_echo(self):
-        self.compare_files('echo.py')
-
-    def test_user(self):
-        self.compare_files('user.py')
+    def test_unity_bindings(self):
+        setup_flask.setup_run(endpoints)
+        clear_path(os.path.join(RESULT_DIR, 'unity_bindings'))
+        setup_flask.create_unity_bindings()
+        path = os.path.join(EXPECT_DIR, 'unity_bindings')
+        for file in file_list('*.*', path):
+            if sys.version_info[0] == 2:
+                self.compare_files(file)
+            else:
+                with self.subTest(file.replace(EXPECT_DIR, '')):
+                    self.compare_files(file)
 
 
 if __name__ == '__main__':

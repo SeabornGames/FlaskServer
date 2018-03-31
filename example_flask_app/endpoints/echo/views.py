@@ -3,8 +3,8 @@
     is up and responding.
 """
 from example_flask_app.settings.global_import import *
-from seaborn.timestamp.timestamp import datetime_to_str,cst_now
-from seaborn.flask_server.decorators import api_endpoint
+from seaborn_timestamp.timestamp import datetime_to_str,cst_now
+from seaborn_flask_server.decorators import api_endpoint
 log.trace("Importing endpoint echo.views")
 from .models import Echo
 

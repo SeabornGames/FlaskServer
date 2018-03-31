@@ -1,10 +1,7 @@
 import os
 import sys
 
-flask_folder = os.path.abspath(__file__).replace('\\', '/').rsplit(
-    '/flask_app', 1)[0]
-sys.path.append(flask_folder)
-from test.base import *
+sys.path.append(os.path.dirname(os.path.dirname(__file__)))
 from test.test_account import AccountTest
 
 

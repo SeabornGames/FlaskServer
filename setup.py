@@ -1,17 +1,18 @@
-from setuptools import setup, find_packages
+from setuptools import setup
+import os
+
+with open(os.path.join(os.path.dirname(__file__), 'README.md')) as f:
+    long_description = f.read()
 
 setup(
     name='seaborn-flask-server',
-    version='0.0.1',
+    version='1.0.0',
     description='Seaborn helper wrapper around Flask',
-    long_description='This is a wrapper around the standard flask app with '
-                     'conventions, helpers, middleware, setup, '
-                     'autogeneration of client bindings',
+    long_description=long_description,
     author='Ben Christenson',
     author_email='Python@BenChristenson.com',
     url='https://github.com/SeabornGames/FlaskServer',
-    packages=['seaborn']+['seaborn.' + i
-                          for i in find_packages(where = './seaborn')],
+    packages=['seaborn_flask_server'],
     package_data={
         'seaborn.flask_server.blueprint.unity_bindings.cs_templates':
               [
@@ -25,26 +26,27 @@ setup(
               ],
         },
     install_requires=[
-        "pip>=9.0.1",
-        "Flask>=0.11.1",
-        "Flask-DebugToolbar==0.10.0",
-        "Flask-Login>=0.3.2",
-        "Flask-Migrate>=2.0.0",
-        "Flask-Script==2.0.5",
-        "Flask-SQLAlchemy>=2.1",
-        "Flask-Testing>=0.6.1",
-        "Flask-WTF>=0.13.1",
-        "gevent>=1.1.2",
-        "greenlet>=0.4.10",
-        "markupSafe==0.23",
-        "requests>=2.11.1",
-        "simplejson>=3.8.2",
-        "six>=1.10.0",
-        "SQLAlchemy>=1.1.1",
-        "test-chain>=0.0.1",
-        "Werkzeug>=0.11.11",
-        "WTForms>=2.1",
-        "psycopg2>=2.7.1",
+        "configparser",
+        "pip",
+        "Flask",
+        "Flask-DebugToolbar",
+        "Flask-Login",
+        "Flask-Migrate",
+        "Flask-Script",
+        "Flask-SQLAlchemy",
+        "Flask-Testing",
+        "Flask-WTF",
+        "gevent",
+        "greenlet",
+        "markupSafe",
+        "requests",
+        "simplejson",
+        "six",
+        "SQLAlchemy",
+        "test-chain",
+        "Werkzeug",
+        "WTForms",
+        "psycopg2",
         'seaborn-meta',
         'seaborn-logger',
         'seaborn-timestamp',
