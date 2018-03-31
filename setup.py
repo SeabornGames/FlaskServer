@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='seaborn-flask-server',
-    version='0.0.1',
+	version='0.0.4',
     description='Seaborn helper wrapper around Flask',
     long_description='This is a wrapper around the standard flask app with '
                      'conventions, helpers, middleware, setup, '
@@ -57,7 +57,7 @@ setup(
         'Intended Audience :: Developers',
         'Natural Language :: English',
         'License :: Other/Proprietary License',
-        'Operating System :: POSIX :: Linux :: Windows',
+        'Operating System :: POSIX :: Linux',
         'Programming Language :: Python',
         'Programming Language :: Python :: 2.7',
     )

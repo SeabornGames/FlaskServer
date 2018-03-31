@@ -4,16 +4,14 @@ import os
 import sys
 import time
 
+sys.path.append(os.path.dirname(os.path.dirname(__file__)))
+
 if sys.version_info[0] == 3:
     import _thread as thread
 else:
     import thread
 
-flask_folder = os.path.abspath(__file__).replace('\\', '/').rsplit(
-    '/flask_app', 1)[0]
-sys.path.append(flask_folder)
-
-from test.flask_app.settings.config import configuration
+from example_flask_app.settings.config import configuration
 from seaborn.flask.example.bindings.python_bindings import Connection
 
 from seaborn.file.file import find_file
@@ -53,8 +51,8 @@ class BaseTest(TestChain):
             cls.anonymous.echo.get()
             print("Server is Already Started")
         except:
-            from flask_app.settings.global_import import setup_flask
-            from flask_app import endpoints
+            from example_flask_app.settings.global_import import setup_flask
+            from example_flask_app import endpoints
             run = setup_flask.setup_run(endpoints)
             thread.start_new_thread(run, ())
 
