@@ -5,7 +5,7 @@ import sys
 import time
 import configparser
 
-from seaborn_file.file import find_file
+from seaborn_file.file import find_path
 from seaborn_logger.skip_traceback import skip_path as traceback_skip_path
 from seaborn_logger.logger import log
 from test_chain import TestChain
@@ -34,7 +34,7 @@ class BaseTest(TestChain):
     def setUpClass(cls):
         traceback_skip_path('/bindings/')
         log.debug('Connecting to Server: %s' % cls.SERVER)
-        cls.config.read(find_file('_config.ini'))
+        cls.config.read(find_path('_config.ini','up'))
         admin_password = cls.config['users']['admin_pwd']
         cls.anonymous = Connection("Anonymous", base_uri=cls.SERVER)
         if cls.SERVER is DEBUG_SERVER or cls.SERVER is PROXY_DEBUG_SERVER:

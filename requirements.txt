@@ -22,6 +22,7 @@ python-editor==1.0.3
 requests==2.18.4
 git+https://github.com/SeabornGames/meta.git#egg=seaborn-meta
 git+https://github.com/SeabornGames/logger.git#egg=seaborn-logger
+git+https://github.com/SeabornGames/requestclient.git#egg=seaborn-request-client
 git+https://github.com/SeabornGames/timestamp.git#egg=seaborn-timestamp
 simplejson==3.13.2
 six==1.11.0

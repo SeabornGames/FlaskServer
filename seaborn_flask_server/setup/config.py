@@ -12,7 +12,7 @@ import os, sys
 if sys.version[0] == '3':
     unicode = str
 from seaborn_logger.logger import SeabornFormatter, log
-from seaborn_file.file import find_file
+from seaborn_file.file import find_path
 import configparser
 from seaborn_timestamp.timestamp import set_timezone_aware
 
@@ -68,7 +68,7 @@ class BaseConfig(object):
         self.STATIC_FOLDER = '%s/static' % flask_folder
 
         self.parser = configparser.ConfigParser()
-        self.parser.read(find_file('_config.ini', self.flask_folder))
+        self.parser.read(find_path('_config.ini', self.flask_folder, 'up'))
 
         self.unity_folders = [
             '%s/bindings/unity_bindings/api' % self.flask_folder]
